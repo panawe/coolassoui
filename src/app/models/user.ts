@@ -1,0 +1,34 @@
+import {Country} from '../models/country';
+import {Position} from '../models/position';
+export class User {
+  id: number;
+  position: Position;
+  userName: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  zipCode: string;
+  membershipDate: Date;
+  membershipRenewDate: Date;
+  birthDate: Date;
+  deathDate: Date;
+  countryOrigin: Country;
+  countryResidence: Country;
+  mum: User;
+  dad: User;
+  name: string;
+  sex: string;
+  pic: string;
+  alive: boolean = true;
+  cityOrigin: string;
+  cityResidence: string;
+  isOnline: boolean;
+  data: string;
+  token: string;
+  role: number;
+  occupation: number;
+  error: string;
+}

@@ -1,0 +1,376 @@
+<div id="carousel-example-generic"
+	class="carousel slide cover overlay overflow-hidden max-height-100 cover-navbar-large-top margin-none"
+	data-ride="carousel">
+
+	<div class="carousel-inner" role="listbox">
+		<div class="item active">
+			<img src="assets/images/bg-top.jpg" width="100%" alt="Slider">
+		</div>
+	</div>
+</div>
+
+<div class="bg-white" style="padding-left: 0px;">
+	<div class="container" style="padding-left: 0px;">
+		<div class="ui-grid-row">
+			<div class="ui-g-2 ui-sm-4">
+				<app-admin-menu></app-admin-menu>
+			</div>
+			<div class="ui-g-10 ui-sm-8">
+				<br />
+				<div class="row">
+
+					<form (ngSubmit)="search()" #searchForm="ngForm">
+						<div class="ui-grid ui-grid-responsive ui-fluid">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-2"></div>
+								<div class="ui-grid-col-6">
+									<input type="text" pInputText class="form-control" id="searchT"
+										required [(ngModel)]="searchText"
+										placeholder="{{USER_SEARCH_PARTS}}" name="searchT"
+										#searchT="ngModel">
+								</div>
+								<div class="ui-grid-col-2">
+									<button type="button" pButton icon="fa-search"
+										(click)="search()" label="Rechercher"
+										style="margin-top: 0px; height: 35px;"></button>
+								</div>
+								<div class="ui-grid-col-2"></div>
+							</div>
+							<div class="ui-grid-row" *ngIf="users">
+								<div class="ui-grid-col-2"></div>
+								<div class="table-responsive ui-grid-col-8">
+
+									<p-dataTable [value]="users" sortField="firstName"
+										selectionMode="single" [(selection)]="user" [rows]="5"
+										[paginator]="true" (onRowSelect)="getSelectedUserTree()"
+										rowGroupMode="subheader"> <p-column
+										[style]="{'width':'25%'}" field="firstName" header="Prenom"></p-column>
+									<p-column [style]="{'width':'25%'}" field="lastName"
+										header="Nom"></p-column> <p-column [style]="{'width':'25%'}"
+										field="cityOrigin" header="Origine"></p-column> <p-column
+										[style]="{'width':'25%'}" field="cityResidence"
+										header="Residence"></p-column> </p-dataTable>
+
+								</div>
+								<div class="ui-grid-col-2"></div>
+							</div>
+						</div>
+
+
+
+					</form>
+					<br />
+					<div class="ui-grid ui-grid-responsive ui-fluid">
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-1"></div>
+							<div class="ui-grid-col-10">
+								<p-panel> <p-header> <img
+									src="assets/images/members/{{user.pic}}" width="25" height="25"
+									alt=""> {{user.firstName }} {{user.lastName}} </p-header>
+
+								<div class="ui-grid-row">
+
+									<div class="ui-grid-col-2">
+										<button type="button" (click)="showDialog(1)" pButton
+											icon="fa fa-child" label="Ajouter un enfant"></button>
+									</div>
+
+									<div class="ui-grid-col-2">
+										<button type="button" (click)="showDialog(2)" pButton
+											icon="fa-venus-double" label="Ajouter un epoux"></button>
+									</div>
+
+									<div class="ui-grid-col-2">
+										<button type="button" (click)="showDialog(3)" pButton
+											icon="fa fa-male" label="Ajouter un Parent"></button>
+									</div>
+									<div class="ui-grid-col-2">
+										<button type="button" (click)="showDialog(4)" pButton
+											icon="fa fa-times" label="Supprimer une relation"></button>
+									</div>
+									<div class="ui-grid-col-2">
+										<button type="button" (click)="showDialog(5)" pButton
+											icon="fa-pencil-square-o"
+											label="Modifier {{user.firstName }} {{user.lastName }}"></button>
+									</div>
+									<div class="ui-grid-col-2">
+										<button type="button" (click)="showDialog(6)" pButton
+											icon="fa-pencil-square-o" label="Ajouter un nouveau"></button>
+									</div>
+								</div>
+								</p-panel>
+							</div>
+							<div class="ui-grid-col-1"></div>
+
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="span6" style="float: none; margin: 0 auto;">
+						<div class="tree">
+							<ul *ngIf="familyTree.user">
+								<li><a *ngFor="let aSpouse of familyTree.spouses"
+									href="#/admin/adminTree" (click)="getUserTree(aSpouse)"
+									style="border: 1px solid #f4f4f4; color: #2191c0; font-weight: bold;"><img
+										src="assets/images/members/{{aSpouse.pic}}" width="110"
+										height="110" alt="Image"> {{aSpouse.firstName}} <br />
+										{{aSpouse.lastName}}</a> <a href="#/admin/adminTree"
+									style="border: 1px solid #f4f4f4; color: #2191c0; font-weight: bold;"
+									(click)="getParentTree(familyTree.user)"><img
+										src="assets/images/members/{{familyTree.user.pic}}"
+										width="110" height="110" alt="Image">
+										{{familyTree.user.firstName }} <br />
+										{{familyTree.user.lastName}}</a>
+									<ul *ngIf="familyTree.children.length>0">
+										<li *ngFor="let aChild of familyTree.children"><a
+											href="#/admin/adminTree" (click)="getUserTree(aChild.user)"
+											style="border: 1px solid #f4f4f4; color: #2191c0;">
+												<div class="childCount">{{aChild.childrenCount}}</div> <img
+												src="assets/images/members/{{aChild.user.pic}}" width="110"
+												height="110" alt="Image"> {{aChild.user.firstName }} <br />
+												{{aChild.user.lastName}}
+
+
+										</a> <!--
+									<ul *ngIf="aChild.children.length>0">
+										<li *ngFor="let aGrandChild of aChild.children"><a
+											href="#/admin/adminTree" (click)="getUserTree(aGrandChild)"
+											style="border: 1px solid #2191c0; color: #2191c0; font-size: 11px;"><img
+												src="assets/images/members/{{aGrandChild.pic}}" width="25"
+												pTooltip="Enter your username" height="25" alt="Image">
+												{{aGrandChild.firstName }} {{aGrandChild.lastName}}</a></li>
+									</ul>
+									--></li>
+
+									</ul></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<br /> <br />
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<p-dialog header="{{actionLabel}}" [(visible)]="displayDialog"
+	[responsive]="true" showEffect="fade" [modal]="true" width="750">
+
+<p-accordion> <p-accordionTab
+	[hidden]="action===5||action==6" header="Utilisateur existant"
+	[selected]="false">
+
+<form (ngSubmit)="searchPop()" #searchForm="ngForm">
+	<div class="ui-grid ui-grid-responsive ui-fluid">
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-9">
+				<input type="text" pInputText class="form-control" id="searchTP"
+					required [(ngModel)]="searchText"
+					placeholder="{{USER_SEARCH_PARTS}}" name="searchTP"
+					#searchTP="ngModel">
+			</div>
+			<div class="ui-grid-col-3">
+				<button type="button" pButton icon="fa-search" (click)="search()"
+					label="Rechercher" style="margin-top: 0px; height: 35px;"></button>
+			</div>
+		</div>
+		<div class="ui-grid-row" *ngIf="usersPop">
+			<div class="table-responsive ui-grid-col-12">
+				<p-dataTable [value]="usersPop" sortField="firstName" [rows]="5"
+					[paginator]="true"> <p-column
+					[style]="{'width':'25%'}" field="firstName" header="Prenom"></p-column>
+				<p-column [style]="{'width':'25%'}" field="lastName" header="Nom"></p-column>
+				<p-column [style]="{'width':'25%'}" field="cityOrigin"
+					header="Origine"></p-column> <p-column [style]="{'width':'25%'}"
+					field="cityResidence" header="Action"> <ng-template
+					let-col let-aUser="rowData" pTemplate="body" field="cityResidence"
+					header="Action">
+				<button type="button" *ngIf="action===1" (click)="changeTree(aUser)"
+					pButton icon="fa fa-child" label="{{popupLabel}}"></button>
+				<button type="button" *ngIf="action===2" (click)="changeTree(aUser)"
+					pButton icon="fa-venus-double" label="{{popupLabel}}"></button>
+				<button type="button" *ngIf="action===3" (click)="changeTree(aUser)"
+					pButton icon="fa fa-male" label="{{popupLabel}}"></button>
+				<button type="button" *ngIf="action===4" (click)="changeTree(aUser)"
+					pButton icon="fa fa-times" label="{{popupLabel}}"></button>
+
+				</ng-template> </p-column> </p-dataTable>
+
+			</div>
+		</div>
+		<div class="ui-grid-row" *ngIf="usersPop">
+			<div class="ui-grid-col-6">
+				<div *ngIf="error" class="alert alert-info"
+					style="margin-top: 0px; width: 100%; height: 50px;">{{error}}</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+</p-accordionTab> <p-accordionTab header="Nouvel Utilisateur" [selected]="true"
+	[hidden]="action===4">
+
+
+<form (ngSubmit)="saveUser()" #profileForm="ngForm">
+
+	<p-accordion> <p-accordionTab
+		header="Champs obligatoires" selected="true">
+
+
+	<div class="ui-grid-row">
+
+		<div class="ui-grid-col-6">
+			<div class="form-group">
+				<label i18n="@@lastName" for="lastName">Nom<font color="red">*</font>:
+				</label> <input type="text" pInputText class="form-control" id="lastName"
+					required [(ngModel)]="newUser.lastName" name="lastName"
+					#lastName="ngModel">
+			</div>
+		</div>
+		<div class="ui-grid-col-6">
+			<div class="form-group">
+				<label i18n="@@firstName" for="firstName">Prenom<font
+					color="red">*</font>:
+				</label> <input type="text" pInputText class="form-control" id="firstName"
+					required [(ngModel)]="newUser.firstName" name="firstName"
+					#firstName="ngModel">
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="ui-grid-row">
+
+		<div class="ui-grid-col-6">
+			<div class="form-group">
+				<label i18n="@@cityResidence" for="cityResidence">Village/Ville
+					de residence<font color="red">*</font>
+				</label> <input type="text" pInputText class="form-control"
+					id="cityResidence" required [(ngModel)]="newUser.cityResidence"
+					name="cityResidence" #cityResidence="ngModel">
+			</div>
+		</div>
+		<div class="ui-grid-col-6">
+			<div class="form-group">
+				<label i18n="@@countryResidence" for="countryResidence">Pays
+					de residence<font color="red">*</font>
+				</label> <br />
+				<p-autoComplete [(ngModel)]="newUser.countryResidence"
+					(onDropdownClick)="countryDropdown.handleDropdownClick($event)"
+					[suggestions]="countryDropdown.filteredCountries" [dropdown]="true"
+					id="countryResidence"
+					(completeMethod)="countryDropdown.filter($event)"
+					name="countryResidence" field="name" [size]="30"
+					placeholder="{{COUNTRY_RESIDENCE}}" [minLength]="1"
+					#country="ngModel"></p-autoComplete>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-6">
+			<div class="form-group">
+				<label i18n="@@cityResidence" for="cityResidence">Village/Ville
+					d'origine<font color="red">*</font>
+				</label> <input type="text" pInputText class="form-control"
+					id="cityResidence" required [(ngModel)]="newUser.cityOrigin"
+					name="cityResidence" #cityOrigin="ngModel">
+			</div>
+		</div>
+		<div class="ui-grid-col-6">
+			<div class="form-group">
+				<label i18n="@@countryResidence" for="countryResidence">Pays
+					d'origine<font color="red">*</font>
+				</label> <br />
+				<p-autoComplete [(ngModel)]="newUser.countryOrigin"
+					(onDropdownClick)="countryDropdown.handleDropdownClick($event)"
+					[suggestions]="countryDropdown.filteredCountries" [dropdown]="true"
+					id="countryOrigin"
+					(completeMethod)="countryDropdown.filter($event)"
+					name="countryOrigin" field="name" [size]="30"
+					placeholder="{{COUNTRY_ORIGIN}}" [minLength]="1" #project="ngModel"></p-autoComplete>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-6">
+			<div class="form-group">
+				<label i18n="@@Iam" for="sex">Je suis<font color="red">*</font>:
+				</label>
+
+				<p-radioButton name="sex" value="F" label="{{FEMALE}}"
+					[(ngModel)]="newUser.sex"></p-radioButton>
+				<p-radioButton name="sex" value="M" label="{{MALE}}"
+					[(ngModel)]="newUser.sex"></p-radioButton>
+
+			</div>
+		</div>
+	</div>
+	<br />
+	</p-accordionTab> <p-accordionTab header="Conatcts" selected="true">
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-4">
+			<div class="form-group">
+				<label i18n="@@birthDate" for="birthDate">Date de Naissance</label><br />
+				<p-inputMask mask="99/99/9999" [(ngModel)]="newUser.birthDate"
+					placeholder="99/99/9999" slotChar="dd/mm/yyyy" name="birthDate"
+					#birthDate="ngModel"></p-inputMask>
+			</div>
+		</div>
+		<div class="ui-grid-col-8">
+			<div class="form-group">
+				<label i18n="@@occupation" for="occupation">Occupation </label> <input
+					type="text" pInputText class="form-control" id="occupation"
+					[(ngModel)]="newUser.occupation" name="occupation"
+					#occupation="ngModel">
+			</div>
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-4">
+			<div class="form-group">
+				<label i18n="@@address" for="address">Adresse</label> <input
+					type="text" pInputText class="form-control" id="address"
+					[(ngModel)]="newUser.address" name="address" #address="ngModel">
+			</div>
+		</div>
+		<div class="ui-grid-col-4">
+			<div class="form-group">
+				<label i18n="@@zipCode" for="zipCode">Code Postal</label> <input
+					type="text" pInputText class="form-control" id="zipCode"
+					[(ngModel)]="newUser.zipCode" name="zipCode" #zipCode="ngModel">
+			</div>
+		</div>
+		<div class="ui-grid-col-4">
+			<div class="form-group">
+				<label i18n="@@phone" for="phone">Telephone</label> <input
+					type="text" pInputText class="form-control" id="phone"
+					[(ngModel)]="newUser.phone" name="phone" #phone="ngModel">
+
+			</div>
+		</div>
+	</div>
+	</p-accordionTab> </p-accordion>
+	<br />
+	<div class="ui-grid-row">
+
+		<div class="ui-grid-col-6">
+			<button pButton type="submit" icon="fa fa-play-circle"
+				style="margin-top: 0px; width: 100%; height: 50px;"
+				label="{{SAVE_LABEL}}"></button>
+		</div>
+		<div class="ui-grid-col-6">
+			<div *ngIf="error" class="alert alert-info"
+				style="margin-top: 0px; width: 100%; height: 50px;">{{error}}</div>
+		</div>
+	</div>
+</form>
+
+</p-accordionTab> </p-accordion> </p-dialog>

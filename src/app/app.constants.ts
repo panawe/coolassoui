@@ -1,0 +1,55 @@
+import {Injectable} from '@angular/core';
+@Injectable()
+export class Constants {
+  public static apiServer: string = "http://localhost:8080/coolasso";
+  //public static apiServer: string = "http://www.arelbou.com";  
+  public static ABSENCES: string = "Absenses";
+  public static ACTIF = "Active";
+  public static ACTIVE = "Active?";
+  public static ADD_IMAGE: string = "Ajouter Image";
+  public static ADD_LABEL: string = "Ajouter";
+  public static VIEW_LABEL: string = "Voir";
+  public static I_AM_MEMBER: string = "Je suis membre";
+  public static I_AM_SUBSCRIBE: string = "Je m'inscris";
+  public static STEP1 = "<< Retouner a l'etape 1";
+  public static STEP2 = ">> Passer a l'etape 2";
+  public static STEP3 = ">> Passer a l'etape 3";
+  public static STEP4 = ">> Passer a l'etape 4"
+  public static PASSWORD_NOT_SENT = "Le mot de passe n'a pu etre envoye. Assurez-vous que vous avez entre un E-mail valide";
+  public static PASSWORD_SENT = "Le mot de passe vous a ete envoye a l'addresse: ";
+  public static SEARCH: string = "Recherche";
+  public static SEARCH_WEBSITE: string = "Rechercher sur le site...";
+  public static SELECT_SEX = "Selectionner le sexe avant de continuer";
+  public static SEX = "Sexe";
+  public static SEND_ME_MY_PASSWORD: string = "Envoyez-moi mon mot de passe";
+  public static ERROR_OCCURRED = "Une erreur systeme s'est produite";
+  public static EMAIL_USED = "La Sauvegarde n'a pas marche. Il se peut que ce e-mail soit deja utilise sur ce site. Essayez de vous connecter ou recuperez votre mot de passe ";
+  public static FEMALE: string = "Femme";
+  public static MALE: string = "Homme";
+  public static CONFIRMATION = "Confirmation";
+  public static CONTACT = "Contact";
+  public static INVALID_USER_PASS = "Nom d'utilisateur et/ou mot de passe invalide";
+  public static INFO_PERSONNELLE = "Information Personnelle";
+  public static COUNTRY_ORIGIN: string = "Pays d'origine";
+  public static COUNTRY_RESIDENCE: string = "Pays de Residence";
+  public static SAVE_LABEL: string = "Sauvegarder";
+  public static TITLE = "Titre";
+  public static deleteFailed: string = "La supression n'a pas marche. Reessayez.";
+  public static deleteSuccess: string = "La suppression a marchee. ";
+  public static saveFailed: string = "La sauvegarde n'a pas marche. Verifiez tous les champs.";
+  public static FILE_UPLOADED = "Fichier charge";
+  public static CLOSE_LABEL: string = "Fermer";
+  public static LOCALE = "fr-FR";
+  public static AUTEUR = "Auteur";
+  public static DATE = "Date";
+  public static RANK = "Rang";
+  public static DETAIL: string = "Detail";
+  public static USER_SEARCH_PARTS: string = "Entrez le nom et/ou le prenom";
+  public static NO_USER_FOUND: string = "Aucune personne trouvee";
+  public static PROJECT: string = "Projet";
+  public static SELECT_PROJECT: string = "Selectioner le projet";
+  public static ALIVE: string = "Vivant";
+  public static DEAD: string = "Decede";
+  public static MISSING_REQUIRED_FIELD= "Veuillez remplir tous les champs requis";
+  public static SAME_SEX= "Les deux utilisateurs choisis sont de meme sexe";
+}

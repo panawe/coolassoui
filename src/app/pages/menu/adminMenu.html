@@ -1,0 +1,15 @@
+<aside class="page-sidebar col-md-2 col-sm-4 affix-top" style="padding-left: 0px; width:100%">
+	<section class="widget" style="background: #f5f5f5;">
+		<ul class="nav">
+			
+			<li class="{{adminMain}}" *ngIf="user.id>0 && user.role===1"><a href="#/admin/adminMain?adminMain=active" i18n="@@statistics">Administration</a></li>
+	    	<li class="{{adminTree}}" *ngIf="user.id>0 && user.role===1"><a href="#/admin/adminTree?adminTree=active" i18n="@@registrationRequest">Arbre genealogique</a></li>    	
+ 			<li class="{{adminAnnonce}}" *ngIf="user.id>0 && user.role===1"><a href="#/admin/adminAnnonce?adminAnnonce=active" i18n="@@statistics">Annonces</a></li>
+ 			<li class="{{adminProject}}" *ngIf="user.id>0 && user.role===1"><a href="#/admin/adminProject?adminProject=active" i18n="@@statistics">Projets</a></li>
+ 			<li class="{{adminFinance}}" *ngIf="user.id>0 && user.role===1"><a href="#/admin/adminFinance?adminFinance=active" i18n="@@statistics">Finances</a></li>
+ 			<li class="{{adminPub}}" *ngIf="user.id>0 && user.role===1"><a href="#/admin/adminPub?adminPub=active" i18n="@@statistics">Publicites</a></li>
+ 			<li class="{{adminProfile}}"><a href="#/admin/adminProfile?adminProfile=active" i18n="@@statistics">Profile</a></li>
+			</ul>
+	</section>
+	<!--//widget-->
+</aside>

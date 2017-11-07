@@ -1,0 +1,169 @@
+
+<div id="carousel-example-generic"
+	class="carousel slide cover overlay overflow-hidden max-height-470 cover-navbar-large-top margin-none"
+	data-ride="carousel">
+	<ol class="carousel-indicators">
+		<li data-target="#carousel-example-generic" data-slide-to="0"
+			class="active"></li>
+		<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+		<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+	</ol>
+	<div class="carousel-inner" role="listbox">
+		<div class="item active">
+			<img src="assets/images/slide-1-min.jpg" alt="Slider" class="width-100pc">
+		</div>
+		<div class="item">
+			<img src="assets/images/slide-2-min.jpg" alt="Slider" class="width-100pc">
+		</div>
+		<div class="item">
+			<img src="assets/images/slide-3-min.jpg" alt="Slider" class="width-100pc">
+		</div>
+	</div>
+	<div class="overlay overlay-bg-black">
+		<div class="v-bottom">
+			<div class="container">
+				<div class="page-section">
+					<h1 class="text-h1 text-overlay">Association des Resortissants	de LAMA BOU</h1>
+					<p class="lead text-overlay">E-mail:arelboutg@gmail.com |Tel.90 15 68 62</p>
+					<p class="lead text-overlay">
+						<strong> <font color="green"> A.RE.L.BOU</font></strong>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<a class="left carousel-control" href="#carousel-example-generic"
+		role="button" data-slide="prev"> <span
+		class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span
+		class="sr-only">Precedent</span>
+	</a> <a class="right carousel-control" href="#carousel-example-generic"
+		role="button" data-slide="next"> <span
+		class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span
+		class="sr-only">Suivant</span>
+	</a>
+</div>
+
+<div class="bg-white">
+	<br />
+	<div class="container">
+		<div class="row">
+
+			<p-panel header="Sponsors" class="col-md-4 col-xs-12">
+			<div id="carousel-example-generic_adv"
+				class="carousel slide overlay overflow-hidden max-height-200"
+				data-ride="carousel">
+				<!-- Indicators -->
+				<!-- <ol class="carousel-indicators" id="carousel-indicators_adv"></ol> -->
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner" id="carousel-inner_adv">
+					<div class="item {{mark.id===1?'active':''}}"
+						*ngFor="let mark of marketings">
+						<a href="{{mark.link}}"> <img src="{{mark.imagePath}}"
+							alt="{{mark.description}}"
+							style="max-height: 200px; width: 100%;" />
+						</a>
+					</div>
+
+				</div>
+				<!-- Controls -->
+				<a class="left carousel-control"
+					href="#carousel-example-generic_adv" data-slide="prev"> <span
+					class="glyphicon glyphicon-chevron-left"></span>
+				</a> <a class="right carousel-control"
+					href="#carousel-example-generic_adv" data-slide="next"> <span
+					class="glyphicon glyphicon-chevron-right"></span>
+				</a>
+			</div>
+
+			</p-panel>
+
+			<p-panel header="Cotisations et dons" class="col-md-4 col-xs-12">
+
+			<form (ngSubmit)="donate()" #searchForm="ngForm">
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						<label i18n="@@project" for="project">Projet</label>
+					</div>
+					<div class="ui-grid-col-10">
+						<p-autoComplete [(ngModel)]="projet"
+							(onDropdownClick)="projectDropdown.handleDropdownClick($event)"
+							[suggestions]="projectDropdown.filteredProjects"
+							[dropdown]="true" id="project"
+							(completeMethod)="projectDropdown.filter($event)" name="project"
+							field="title" [size]="30" placeholder="{{SELECT_PROJECT}}"
+							[minLength]="1" #project="ngModel"></p-autoComplete>
+						<div [hidden]="project.valid || project.pristine"
+							class="alert alert-danger" i18n="@@projectRequired">Projet
+							requis</div>
+					</div>
+
+				</div>
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						<label i18n="@@Montant" for="project">Montant</label>
+					</div>
+					<div class="ui-g-8 ui-md-7">
+						<div class="ui-inputgroup">
+							<span class="ui-inputgroup-addon">$</span> <input type="text"
+								pInputText placeholder="Montant" [(ngModel)]="payAmount"
+								name="pAmount"> <span class="ui-inputgroup-addon">.00</span>
+						</div>
+					</div>
+					<div class="ui-g-2 ui-md-3">
+						<button type="button" pButton icon="fa-check" (click)="donate()"
+							label="Donner"></button>
+					</div>
+				</div>
+			</form>
+			<div class="ui-grid-row" *ngIf="contributions">
+				<div class="ui-grid-col-12">
+					<p-dataTable [value]="contributions" [rows]="4">
+					<p-column [style]="{'width':'75%'}" field="member" header="Nom"></p-column>
+					<p-column [style]="{'width':'25%'}" field="amount" header="Montant (CFA)"></p-column>
+					</p-dataTable>
+				</div>
+			</div>
+			</p-panel>
+
+			<p-panel header="Annonces" class="col-md-4 col-xs-12">
+			<div id="carousel-annonce_adv"
+				class="carousel slide overlay overflow-hidden max-height-200"
+				data-ride="carousel">
+				<div class="carousel-inner" id="carousel-inner_adv">
+					<div class="item {{ann.id===1?'active':''}}"
+						*ngFor="let ann of annonces">
+						<div class="col-md-12 news-item">
+							<a class="read-more" href="#/annonce"
+								(click)="setCurrentAnnonce(ann)"> <img class="thumb"
+								src="assets/images/annonces/{{ann.id+'.jpg'}}" alt=""
+								align="left" style="margin: 0px 10px" width="25%" />
+							</a>
+							<h5 class="title">
+								<a href="#/annonce" (click)="setCurrentAnnonce(ann)"
+									style="font-size: 12px; font-weight: bold;">{{ann.title}}</a>
+							</h5>
+
+							<a class="read-more" href="#/annonce"
+								(click)="setCurrentAnnonce(ann)" i18n="@@readMore"
+								style="font-size: 9px">
+								<div [innerHTML]="ann.shortDesc" style="font-size: 12px"></div>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- Controls -->
+				<a class="left carousel-control"
+					href="#carousel-annonce_adv" data-slide="prev"> <span
+					class="glyphicon glyphicon-chevron-left"></span>
+				</a> <a class="right carousel-control"
+					href="#carousel-annonce_adv" data-slide="next"> <span
+					class="glyphicon glyphicon-chevron-right"></span>
+				</a>
+			</div>
+
+			</p-panel>
+
+		</div>
+	</div>
