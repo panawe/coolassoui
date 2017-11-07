@@ -5,7 +5,7 @@ import { News } from '../models/news';
 import { Constants } from '../app.constants';
 
 @Injectable()
-export class NewsService {
+export class NewsService { 
 
   private actionUrl: string;
   private headers: Headers;
@@ -31,14 +31,7 @@ export class NewsService {
       })
       .catch(this.handleError);
   }
-
-  public getNews0 = (): Observable<News> => {
-    this.actionUrl = Constants.apiServer + '/service/news/getNews0';
-    return this.http.get(this.actionUrl)
-      .map((response: Response) => <News>response.json())
-      .catch(this.handleError);
-  }
-
+  
   public getFirst3 = (): Observable<News[]> => {
     this.actionUrl = Constants.apiServer + '/service/news/getFirst3';
 
@@ -47,7 +40,7 @@ export class NewsService {
       .catch(this.handleError);
   }
 
-  public getLatestNews = (): Observable<News[]> => {
+    public getLatestNews = (): Observable<News[]> => {
     this.actionUrl = Constants.apiServer + '/service/news/getLatestNews';
 
     return this.http.get(this.actionUrl)

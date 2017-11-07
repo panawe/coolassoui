@@ -19,7 +19,7 @@ export class AdminMenu implements OnInit {
   public adminTree: string;
   public adminMain: string;
   public adminPub: string;
-  public adminAnnonce: string;
+  public adminNews: string;
   public adminProject: string;
   public adminFinance: string;
   public adminProfile: string;
@@ -47,7 +47,7 @@ export class AdminMenu implements OnInit {
         this.adminTree = params['adminTree'];
         this.adminMain = params['adminMain'];
         this.adminPub = params['adminPub'];
-        this.adminAnnonce = params['adminAnnonce'];
+        this.adminNews = params['adminNews'];
         this.adminProject = params['adminProject'];
         this.adminFinance = params['adminFinance'];
         this.adminProfile = params['adminProfile'];

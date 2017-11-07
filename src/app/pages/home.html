@@ -10,21 +10,26 @@
 	</ol>
 	<div class="carousel-inner" role="listbox">
 		<div class="item active">
-			<img src="assets/images/slide-1-min.jpg" alt="Slider" class="width-100pc">
+			<img src="assets/images/slide-1-min.jpg" alt="Slider"
+				class="width-100pc">
 		</div>
 		<div class="item">
-			<img src="assets/images/slide-2-min.jpg" alt="Slider" class="width-100pc">
+			<img src="assets/images/slide-2-min.jpg" alt="Slider"
+				class="width-100pc">
 		</div>
 		<div class="item">
-			<img src="assets/images/slide-3-min.jpg" alt="Slider" class="width-100pc">
+			<img src="assets/images/slide-3-min.jpg" alt="Slider"
+				class="width-100pc">
 		</div>
 	</div>
 	<div class="overlay overlay-bg-black">
 		<div class="v-bottom">
 			<div class="container">
 				<div class="page-section">
-					<h1 class="text-h1 text-overlay">Association des Resortissants	de LAMA BOU</h1>
-					<p class="lead text-overlay">E-mail:arelboutg@gmail.com |Tel.90 15 68 62</p>
+					<h1 class="text-h1 text-overlay">Association des Resortissants
+						de LAMA BOU</h1>
+					<p class="lead text-overlay">E-mail:arelboutg@gmail.com |Tel.90
+						15 68 62</p>
 					<p class="lead text-overlay">
 						<strong> <font color="green"> A.RE.L.BOU</font></strong>
 					</p>
@@ -119,10 +124,10 @@
 			</form>
 			<div class="ui-grid-row" *ngIf="contributions">
 				<div class="ui-grid-col-12">
-					<p-dataTable [value]="contributions" [rows]="4">
-					<p-column [style]="{'width':'75%'}" field="member" header="Nom"></p-column>
-					<p-column [style]="{'width':'25%'}" field="amount" header="Montant (CFA)"></p-column>
-					</p-dataTable>
+					<p-dataTable [value]="contributions" [rows]="4"> <p-column
+						[style]="{'width':'75%'}" field="member" header="Nom"></p-column>
+					<p-column [style]="{'width':'25%'}" field="amount"
+						header="Montant (CFA)"></p-column> </p-dataTable>
 				</div>
 			</div>
 			</p-panel>
@@ -132,33 +137,38 @@
 				class="carousel slide overlay overflow-hidden max-height-200"
 				data-ride="carousel">
 				<div class="carousel-inner" id="carousel-inner_adv">
-					<div class="item {{ann.id===1?'active':''}}"
-						*ngFor="let ann of annonces">
+					<div class="item {{news.id===firstNewsId?'active':''}}"
+						*ngFor="let news of newss">
 						<div class="col-md-12 news-item">
-							<a class="read-more" href="#/annonce"
-								(click)="setCurrentAnnonce(ann)"> <img class="thumb"
-								src="assets/images/annonces/{{ann.id+'.jpg'}}" alt=""
-								align="left" style="margin: 0px 10px" width="25%" />
+							<a class="read-more" href="#/newsSingle"
+								(click)="setCurrentNews(news)"> <img class="thumb"
+								src="assets/images/news/{{news.pic}}" alt="" align="left"
+								style="margin: 0px 10px" width="25%" />
 							</a>
 							<h5 class="title">
-								<a href="#/annonce" (click)="setCurrentAnnonce(ann)"
-									style="font-size: 12px; font-weight: bold;">{{ann.title}}</a>
+								<a href="#/newsSingle" (click)="setCurrentNews(news)"
+									style="font-size: 12px; font-weight: bold;"> 
+									 {{news.title}}</a>
 							</h5>
+							<p class="meta text-muted">
+								Publie par: <a href="#">{{news.author}}</a> | Date:
+								{{news.newsDate|date:'dd/MM/yy'}}
+							</p>
 
-							<a class="read-more" href="#/annonce"
-								(click)="setCurrentAnnonce(ann)" i18n="@@readMore"
-								style="font-size: 9px">
-								<div [innerHTML]="ann.shortDesc" style="font-size: 12px"></div>
+							<a class="read-more" href="#/newsSingle"
+								(click)="setCurrentNews(news)" i18n="@@readMore"
+								style="font-size: 11px">
+								<div [froalaView]="news.shortMessage"></div>
 							</a>
 						</div>
 					</div>
 				</div>
 				<!-- Controls -->
-				<a class="left carousel-control"
-					href="#carousel-annonce_adv" data-slide="prev"> <span
+				<a class="left carousel-control" href="#carousel-annonce_adv"
+					data-slide="prev"> <span
 					class="glyphicon glyphicon-chevron-left"></span>
-				</a> <a class="right carousel-control"
-					href="#carousel-annonce_adv" data-slide="next"> <span
+				</a> <a class="right carousel-control" href="#carousel-annonce_adv"
+					data-slide="next"> <span
 					class="glyphicon glyphicon-chevron-right"></span>
 				</a>
 			</div>

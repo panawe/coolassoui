@@ -6,9 +6,11 @@ import {Arbre} from './components/tree';
 import {Statuts} from './components/statuts';
 import {Reglements} from './components/reglements';
 import {Projects} from './components/projects';
+import {NewsSingle} from './components/newsSingle';
 export const routes: Routes = [
   {path: 'home', component: Home},
   {path: 'login', component: Login},
+  {path: 'newsSingle', component: NewsSingle},
   {path: 'statuts', component: Statuts},
   {path: 'reglements', component: Reglements},
   {path: 'projects', component: Projects},

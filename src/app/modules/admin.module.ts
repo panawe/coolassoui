@@ -6,15 +6,16 @@ import {AdminProfile} from '../components/adminProfile';
 import {AdminProject} from '../components/adminProject';
 import {AdminFinance} from '../components/adminFinance';
 import {AdminPub} from '../components/adminPub';
-import {AdminAnnonce} from '../components/adminAnnonce';
+import {AdminNews} from '../components/adminNews';
 import {AdminMenu} from '../components/menu/adminMenu';
 import {CommonSharedModule} from './common.shared.module';
-import { FroalaEditorModule } from 'angular-froala-wysiwyg';
+import { FroalaEditorModule,FroalaViewModule } from 'angular-froala-wysiwyg';
 
+import { FileUploader }                             from '../components/fileUploader';
 const routes: Routes = [
   {path: 'adminMain', component: AdminMain},
   {path: 'adminTree', component: AdminTree},
-  {path: 'adminAnnonce', component: AdminAnnonce},
+  {path: 'adminNews', component: AdminNews},
   {path: 'adminProject', component: AdminProject},
   {path: 'adminFinance', component: AdminFinance},
   {path: 'adminProfile', component: AdminProfile},
@@ -23,12 +24,12 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes), CommonSharedModule,FroalaEditorModule.forRoot() 
+    RouterModule.forChild(routes), CommonSharedModule , FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
 
   exports: [CommonSharedModule],
 
-  declarations: [AdminMenu, AdminMain, AdminTree, AdminProfile, AdminAnnonce, AdminProject, AdminFinance, AdminPub],
+  declarations: [FileUploader, AdminMenu, AdminMain, AdminTree, AdminProfile, AdminNews, AdminProject, AdminFinance, AdminPub],
 
   providers: []
 })

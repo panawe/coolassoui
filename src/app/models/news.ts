@@ -1,7 +1,11 @@
 export class News {
-  id: Number;
+  id: number;
   title: string;
   newsDate: Date;
-  message: string; 
-  author: string; 
+  message: string;
+  shortMessage:string;
+  author: string;
+  pic: string;
+  status: boolean;
+  rank: number;
 }

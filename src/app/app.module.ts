@@ -13,26 +13,26 @@ import {Arbre} from './components/tree';
 import {Statuts} from './components/statuts';
 import {Reglements} from './components/reglements';
 import {Projects} from './components/projects';
-import {FileUploader} from './components/fileUploader';
+import {NewsSingle} from './components/newsSingle';
 import {CommonSharedModule} from './modules/common.shared.module';
-import {  FroalaViewModule } from 'angular-froala-wysiwyg';
+import {FroalaViewModule} from 'angular-froala-wysiwyg';
 import {
   BaseService, UserService
 } from './services/';
-import { GlobalEventsManager } from './services/globalEventsManager';
+import {GlobalEventsManager} from './services/globalEventsManager';
 
 @NgModule({
   declarations: [
-    AppComponent, Home, Login, Arbre, FileUploader,Statuts,Reglements,Projects
+    AppComponent, Home, Login, Arbre, Statuts, Reglements, Projects, NewsSingle
   ],
   imports: [
-    BrowserModule, BrowserAnimationsModule, FormsModule, HttpModule, CommonSharedModule,FroalaViewModule.forRoot(),
+    BrowserModule, BrowserAnimationsModule, FormsModule, HttpModule, CommonSharedModule, FroalaViewModule.forRoot(),
     RouterModule.forRoot(routes, {
       useHash: true
     })
   ],
 
-  providers: [BaseService, UserService, Constants,GlobalEventsManager
+  providers: [BaseService, UserService, Constants, GlobalEventsManager
   ],
   bootstrap: [AppComponent]
 })

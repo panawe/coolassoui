@@ -31,7 +31,7 @@
 				</div>
 				<div class="ui-grid-col-6">
 
-					<p-dataTable [value]="contributions" [rows]="4"> <p-column
+					<p-dataTable [value]="project.contributions" [rows]="4" [rows]="4" [paginator]="true"> <p-column
 						[style]="{'width':'75%'}" field="member" header="Nom"></p-column>
 					<p-column [style]="{'width':'25%'}" field="amount"
 						header="Montant (CFA)"></p-column> </p-dataTable>

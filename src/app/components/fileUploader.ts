@@ -46,7 +46,7 @@ export class FileUploader implements OnInit {
     this.uploadFileUrl = Constants.apiServer + "/service/fileUploader/uploadFile/" + entity + "/" + data.id;
   }
 
-  uploadFile(entity) { 
+  uploadFile(entity) {
     this.displayFileUploaderDialog = true;
     this.uploadFileUrl = Constants.apiServer + "/service/fileUploader/load/" + entity;
   }

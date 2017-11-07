@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 @Injectable()
 export class Constants {
-  public static apiServer: string = "http://localhost:8080/coolasso";
-  //public static apiServer: string = "http://www.arelbou.com";  
+  //public static apiServer: string = "http://localhost:8080/coolasso";
+  public static apiServer: string = "http://www.arelbou.com";  
   public static ABSENCES: string = "Absenses";
   public static ACTIF = "Active";
   public static ACTIVE = "Active?";

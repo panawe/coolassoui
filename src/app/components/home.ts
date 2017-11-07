@@ -1,10 +1,11 @@
 import {Constants} from '../app.constants';
 import {Advertisement} from '../models/advertisement';
-import {Annonce} from '../models/annonce';
 import {Contribution} from '../models/contribution';
+import {News} from '../models/news';
 import {Project} from '../models/project';
-import { User } from '../models/user';
+import {User} from '../models/user';
 import {BaseService} from '../services/base.service';
+import {NewsService} from '../services/news.service';
 import {ProjectDropdown} from './dropdowns/dropdown.project';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -14,10 +15,10 @@ import {Cookie} from 'ng2-cookies/ng2-cookies';
   moduleId: 'module.id',
   selector: 'app-home',
   templateUrl: '../pages/home.html',
-  providers: [BaseService, Constants, ProjectDropdown]
+  providers: [BaseService, NewsService, Constants, ProjectDropdown]
 })
 
-export class Home  implements OnInit {
+export class Home implements OnInit {
   user: User;
   marketings: Advertisement[];
   PROJECT: string = Constants.PROJECT;
@@ -25,11 +26,13 @@ export class Home  implements OnInit {
   payAmount: number;
   projet: Project;
   contributions: Contribution[];
-  annonces: Annonce[];
+  newss: News[];
+  firstNewsId:number=1;
   public projectDropdown: ProjectDropdown;
   constructor(
     private prDropdown: ProjectDropdown,
-    private baseService: BaseService) {
+    private baseService: BaseService,
+    private newsService: NewsService) {
     this.projectDropdown = prDropdown;
   }
 
@@ -62,12 +65,14 @@ export class Home  implements OnInit {
       error => console.log(error),
       () => console.log('Get All Contributions Complete'));
 
-    this.baseService.getActiveAnnonces()
-      .subscribe((data: Annonce[]) => {
-        this.annonces = data;
+    this.newsService.getFirst3()
+      .subscribe((data: News[]) => {
+        this.newss = data;
+        this.firstNewsId=this.newss[0].id;
+        console.log(this.newss);
       },
       error => console.log(error),
-      () => console.log('Get All getActiveAnnonces Complete'));
+      () => console.log('Get first 3 News complete'));
   }
 
 
@@ -84,5 +89,9 @@ export class Home  implements OnInit {
         console.log('createPayment successful');
       }
     );
+  }
+
+  setCurrentNews(aNews) {
+    Cookie.set('newsId', aNews.id);
   }
 }

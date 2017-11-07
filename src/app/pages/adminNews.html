@@ -1,0 +1,133 @@
+<file-uploader></file-uploader>
+
+<div id="carousel-example-generic"
+	class="carousel slide cover overlay overflow-hidden max-height-100 cover-navbar-large-top margin-none"
+	data-ride="carousel">
+
+	<div class="carousel-inner" role="listbox">
+		<div class="item active">
+			<img src="assets/images/bg-top.jpg" width="100%" alt="Slider">
+		</div>
+	</div>
+</div>
+
+<p-dialog header="Detail d'une Annonce" [(visible)]="displayDialog"
+	[responsive]="true" showEffect="fade" [modal]="true" width="750">
+<div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="news">
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-4">
+			<label for="newsDate">Date</label>
+		</div>
+		<div class="ui-grid-col-8">
+			<p-calendar id="newsDate" [showIcon]="false"
+				[(ngModel)]="news.newsDate"></p-calendar>
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-4">
+			<label for="title">Titre</label>
+		</div>
+		<div class="ui-grid-col-8">
+			<input pInputText id="title" [(ngModel)]="news.title" required />
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-4">
+			<label for="message">Message</label>
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-12">
+			<div [froalaEditor] [(froalaModel)]="news.message"></div>
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-4">
+			<label for="author">Auteur</label>
+		</div>
+		<div class="ui-grid-col-8">
+			<input pInputText id="author" [(ngModel)]="news.author" />
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-4">
+			<label for="status">Active</label>
+		</div>
+		<div class="ui-grid-col-8">
+			<p-checkbox [(ngModel)]="news.status" binary="true" id="status"></p-checkbox>
+		</div>
+
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-4">
+			<label for="rank">Rank</label>
+		</div>
+		<div class="ui-grid-col-8">
+			<input pInputText id="rank" [(ngModel)]="news.rank" />
+		</div>
+	</div>
+</div>
+<br />
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+<footer>
+	<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+		<button type="button" pButton icon="fa-close" (click)="delete()"
+			label="Supprimer"></button>
+		<button type="button" pButton icon="fa-check" (click)="save()"
+			label="Sauvegarder"></button>
+	</div>
+</footer> </p-dialog>
+
+<div class="bg-white" style="padding-left: 0px;">
+	<div class="container" style="padding-left: 0px;">
+		<div class="ui-grid-row">
+			<div class="ui-g-2 ui-sm-4">
+				<app-admin-menu></app-admin-menu>
+			</div>
+			<div class="ui-g-10 ui-sm-8">
+				<p-dataTable [value]="newss" selectionMode="single"
+					[(selection)]="selectedNews" expandableRows="true"
+					(onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5"
+					[responsive]="true"> <p-column expander="true"
+					styleClass="col-icon" [style]="{'width':'5%'}"></p-column> <p-column
+					*ngFor="let col of cols" [field]="col.field" [header]="col.header"
+					[style]="col.style" [sortable]="col.sortable" [filter]="col.filter">
+				<template *ngIf="col.type === 'string' || col.type === undefined"
+					let-col let-data="rowData" pTemplate type="body"> <span
+					class="col-string">{{ data[ col.field ] }}</span> </template> <template
+					*ngIf="col.type === 'Date'" let-col let-data="rowData" pTemplate
+					type="body"> <span class="col-date">{{ data[
+					col.field ] | date:'dd/MM/yy' }}</span> </template> </p-column> <p-column field="id"
+					header="actions" [style]="{'width':'7%'}"> <template
+					let-data="rowData" let-rowIndex="rowIndex" pTemplate type="body">
+				<button type="button" pButton icon="fa-picture-o"
+					style="float: left" (click)="showDialogToUploadImage(data)">
+				</button>
+				</template> </p-column> <template let-news pTemplate="rowexpansion">
+				<div class="ui-grid ui-grid-responsive ui-fluid"
+					style="font-size: 16px; padding: 20px">
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-12">
+							<h2 class="title">{{news.title}}</h2>
+						</div>
+					</div>
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-2">
+							<img class="thumb" width="100%" src="assets/images/news/{{news.pic}}" alt="" />
+						</div>
+						<div [froalaView]="news.message"></div>
+					</div>
+				</div>
+
+				</template> <p-footer>
+				<div class="ui-helper-clearfix" style="width: 100%">
+					<button type="button" pButton icon="fa-plus" style="float: left"
+						(click)="showDialogToAdd()" label="{{ADD_LABEL}}"></button>
+				</div>
+				</p-footer> </p-dataTable>
+
+
+			</div>
+		</div>
+	</div>
+</div>

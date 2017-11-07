@@ -1,5 +1,6 @@
-import { Picture } from './picture';
-export class Project { 
+import {Contribution} from './contribution';
+import {Picture} from './picture';
+export class Project {
   id: number;
   title: string;
   description: string;
@@ -11,5 +12,6 @@ export class Project {
   endDate: Date;
   status: boolean;
   hasPhoto: boolean;
-  pics:Picture[];
+  pics: Picture[];
+  contributions: Contribution[];
 }
