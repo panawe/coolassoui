@@ -26,8 +26,10 @@
 		<div class="v-bottom">
 			<div class="container">
 				<div class="page-section">
-					<h1 class="text-h1 text-overlay">Association des Resortissants de Lama Bou</h1>
-					<p class="lead text-overlay">E-mail:arelboutg@gmail.com | Recontre tous les premiers dimanches du mois</p>
+					<h1 class="text-h1 text-overlay">Association des Resortissants
+						de Lama Bou</h1>
+					<p class="lead text-overlay">E-mail:arelboutg@gmail.com |
+						Recontre tous les premiers dimanches du mois</p>
 					<p class="lead text-overlay">
 						<strong> <font color="green"> A.RE.L.BOU</font></strong>
 					</p>
@@ -85,10 +87,10 @@
 			<form (ngSubmit)="donate()" #searchForm="ngForm">
 
 				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						<label i18n="@@project" for="project">Projet</label>
+					<div class="ui-grid-col-3">
+						<label i18n="@@project" for="project">Raison/Projet</label>
 					</div>
-					<div class="ui-grid-col-10">
+					<div class="ui-grid-col-9">
 						<p-autoComplete [(ngModel)]="projet"
 							(onDropdownClick)="projectDropdown.handleDropdownClick($event)"
 							[suggestions]="projectDropdown.filteredProjects"
@@ -107,14 +109,19 @@
 					<div class="ui-grid-col-2">
 						<label i18n="@@Montant" for="project">Montant</label>
 					</div>
-					<div class="ui-g-8 ui-md-7">
-						<div class="ui-inputgroup">
-							<span class="ui-inputgroup-addon">$</span> <input type="text"
-								pInputText placeholder="Montant" [(ngModel)]="payAmount"
-								name="pAmount"> <span class="ui-inputgroup-addon">.00</span>
-						</div>
+					<div class="ui-g-4 ui-md-4">
+						<input type="text" pInputText placeholder="Montant" size="16"
+							[(ngModel)]="payAmount" name="pAmount">
+
 					</div>
-					<div class="ui-g-2 ui-md-3">
+					<div class="ui-g-3 ui-md-3">
+
+						<p-radioButton name="USD" value="USD" label="$"
+							[(ngModel)]="currencyCode"></p-radioButton>
+						<p-radioButton name="EURO" value="EURO" label="€"
+							[(ngModel)]="currencyCode"></p-radioButton>
+					</div>
+					<div class="ui-g-3 ui-md-3">
 						<button type="button" pButton icon="fa-check" (click)="donate()"
 							label="Donner"></button>
 					</div>
@@ -128,6 +135,7 @@
 						header="Montant (CFA)"></p-column> </p-dataTable>
 				</div>
 			</div>
+			<div *ngIf="error" class="alert alert-danger">{{error}}</div>
 			</p-panel>
 
 			<p-panel header="Annonces" class="col-md-4 col-xs-12">
@@ -145,8 +153,7 @@
 							</a>
 							<h5 class="title">
 								<a href="#/newsSingle" (click)="setCurrentNews(news)"
-									style="font-size: 12px; font-weight: bold;"> 
-									 {{news.title}}</a>
+									style="font-size: 12px; font-weight: bold;"> {{news.title}}</a>
 							</h5>
 							<p class="meta text-muted">
 								Publie par: <a href="#">{{news.author}}</a> | Date:

@@ -29,7 +29,7 @@ export class Login implements OnInit {
   button = '';
   user: User;
   msgs: Message[] = [];
-
+  don: string;
   I_AM_MEMBER: string = Constants.I_AM_MEMBER;
   I_AM_SUBSCRIBE: string = Constants.I_AM_SUBSCRIBE;
   SEND_ME_MY_PASSWORD: string = Constants.SEND_ME_MY_PASSWORD;
@@ -53,6 +53,14 @@ export class Login implements OnInit {
   ngOnInit() {
 
     this.user = new User();
+
+    if (Cookie.get('don')) {
+      this.don = Cookie.get('don');
+      console.log(this.don);
+      if (this.don != null && this.don != "") {
+        this.error = "Vous devez vous connecter pour effectuer completer le payement/don."
+      }
+    }
   }
 
   public login() {
@@ -66,10 +74,16 @@ export class Login implements OnInit {
               this.globalEventsManager.showNavBar.emit(this.user);
 
               this.user = JSON.parse(Cookie.get('user'));
-              if (this.user.role == 1) {//admin
-                this.router.navigate(["/admin/adminTree"]);
-              } else { //others
-                this.router.navigate(["/"]);
+
+              if (this.don != null && this.don != "") {
+                this.error = "";
+                this.donate();
+              } else {
+                if (this.user.role == 1) {//admin
+                  this.router.navigate(["/admin/adminTree"]);
+                } else { //others
+                  this.router.navigate(["/"]);
+                }
               }
             }
             else {
@@ -82,6 +96,24 @@ export class Login implements OnInit {
       this.error = Constants.ERROR_OCCURRED;
     }
 
+
+  }
+
+
+  public donate() {
+    const parm: string = this.don + "|" + (this.user == null ? 1 : this.user.id);
+    this.baseService.createPayment(parm).subscribe((data: string) => {
+      Cookie.delete('don');
+      window.location.href = data;
+      console.log(data);
+    }, error => {
+      console.log(error);
+      console.log('createPayment failed');
+    },
+      () => {
+        console.log('createPayment successful');
+      }
+    );
 
   }
 
@@ -116,13 +148,19 @@ export class Login implements OnInit {
         this.userService.registerOnline(this.user)
           .subscribe(result => {
             const user: User = result;
-            if (result.error == null) {              
+            if (result.error == null) {
               this.user = JSON.parse(Cookie.get('user'));
               this.globalEventsManager.showNavBar.emit(this.user);
-              if (this.user.role == 1) {//student
-                this.router.navigate(["/admin/adminTree"]);
+              if (this.don != null && this.don != "") {
+                this.error = "";
+                this.donate();
               } else {
-                this.router.navigate(["/"]);
+
+                if (this.user.role == 1) {//student
+                  this.router.navigate(["/admin/adminTree"]);
+                } else {
+                  this.router.navigate(["/"]);
+                }
               }
               //window.location.reload();
             } else {

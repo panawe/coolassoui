@@ -9,6 +9,7 @@ import {NewsService} from '../services/news.service';
 import {ProjectDropdown} from './dropdowns/dropdown.project';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
 
 @Component({
@@ -27,18 +28,21 @@ export class Home implements OnInit {
   projet: Project;
   contributions: Contribution[];
   newss: News[];
-  firstNewsId:number=1;
+  error: string = "";
+  firstNewsId: number = 1;
+  currencyCode: string = "USD";
   public projectDropdown: ProjectDropdown;
   constructor(
     private prDropdown: ProjectDropdown,
     private baseService: BaseService,
-    private newsService: NewsService) {
+    private newsService: NewsService,
+    private router: Router) {
     this.projectDropdown = prDropdown;
   }
 
   ngOnInit() {
     console.log('in AppComponent init');
-
+    this.error = "";
     if (this.user == null) {
       //console.log('User = '+Cookie.get('user'));
       if (Cookie.get('user'))
@@ -68,7 +72,7 @@ export class Home implements OnInit {
     this.newsService.getFirst3()
       .subscribe((data: News[]) => {
         this.newss = data;
-        this.firstNewsId=this.newss[0].id;
+        this.firstNewsId = this.newss[0].id;
         console.log(this.newss);
       },
       error => console.log(error),
@@ -77,18 +81,31 @@ export class Home implements OnInit {
 
 
   public donate() {
-    const parm: string = String(this.payAmount + "|" + this.projet.id + "|" + this.user == null ? 0 : this.user.id);
-    this.baseService.createPayment(parm).subscribe((data: string) => {
-      window.location.href = data;
-      console.log(data);
-    }, error => {
-      console.log(error);
-      console.log('createPayment failed');
-    },
-      () => {
-        console.log('createPayment successful');
+    this.error = "";
+    if (this.projet == null || this.payAmount == null || this.payAmount <= 0) {
+      if (this.projet == null) {
+        this.error = "Selectionner le projet";
+      } else {
+        this.error = "Entree le montant";
       }
-    );
+
+    } else if (this.user == null || this.user.id == 0) {
+      Cookie.set('don', this.payAmount + "|" + this.currencyCode + "|" + this.projet.id);
+      this.router.navigate(["/login"]);
+    } else {
+      const parm: string =  this.payAmount + "|" + this.currencyCode + "|" + this.projet.id + "|" +  this.user.id ;
+      this.baseService.createPayment(parm).subscribe((data: string) => {
+        window.location.href = data;
+        console.log(data);
+      }, error => {
+        console.log(error);
+        console.log('createPayment failed');
+      },
+        () => {
+          console.log('createPayment successful');
+        }
+      );
+    }
   }
 
   setCurrentNews(aNews) {

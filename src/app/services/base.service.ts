@@ -77,6 +77,12 @@ export class BaseService {
       .catch(this.handleError);
   }
   
+    public getAllActiveProjects = (): Observable<Project[]> => {
+    let actionUrl = Constants.apiServer + '/service/base/getAllActiveProjects';
+    return this.http.get(actionUrl, {headers: this.headers})
+      .map((response: Response) => <Project[]>response.json())
+      .catch(this.handleError);
+  }
     public getAllProjectsWithPics = (): Observable<Project[]> => {
     let actionUrl = Constants.apiServer + '/service/project/getAllProjects';
     return this.http.get(actionUrl, {headers: this.headers})

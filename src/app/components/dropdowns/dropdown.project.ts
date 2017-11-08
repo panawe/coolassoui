@@ -30,7 +30,7 @@ export class ProjectDropdown {
   
   private getAllProjects(): void {
     console.info(this.projects);
-    this.baseService.getAllProjects()
+    this.baseService.getAllActiveProjects()
       .subscribe((data: Project[]) => this.projects = data,
       error => console.log(error),
       () => console.log('Get All Projects Complete'));

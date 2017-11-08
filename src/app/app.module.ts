@@ -16,6 +16,7 @@ import {Projects} from './components/projects';
 import {NewsSingle} from './components/newsSingle';
 import {CommonSharedModule} from './modules/common.shared.module';
 import {FroalaViewModule} from 'angular-froala-wysiwyg';
+import {Donate} from './components/donate';
 import {
   BaseService, UserService
 } from './services/';
@@ -23,7 +24,7 @@ import {GlobalEventsManager} from './services/globalEventsManager';
 
 @NgModule({
   declarations: [
-    AppComponent, Home, Login, Arbre, Statuts, Reglements, Projects, NewsSingle
+    AppComponent, Home, Login, Arbre, Statuts, Reglements, Projects, NewsSingle, Donate
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, FormsModule, HttpModule, CommonSharedModule, FroalaViewModule.forRoot(),
