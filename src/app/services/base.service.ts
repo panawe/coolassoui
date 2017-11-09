@@ -64,6 +64,13 @@ export class BaseService {
       .catch(this.handleError);
   }
 
+  public getUserContributions = (user: User): Observable<Contribution[]> => {
+    let actionUrl = Constants.apiServer + '/service/user/getUserContributions/' + user.id;
+    return this.http.get(actionUrl, {headers: this.headers})
+      .map((response: Response) => <Contribution[]>response.json())
+      .catch(this.handleError);
+  }
+
   public getActiveAnnonces = (): Observable<Annonce[]> => {
     let actionUrl = Constants.apiServer + '/service/announce/getActiveAnnounces';
     return this.http.get(actionUrl, {headers: this.headers})
@@ -76,14 +83,14 @@ export class BaseService {
       .map((response: Response) => <Project[]>response.json())
       .catch(this.handleError);
   }
-  
-    public getAllActiveProjects = (): Observable<Project[]> => {
+
+  public getAllActiveProjects = (): Observable<Project[]> => {
     let actionUrl = Constants.apiServer + '/service/base/getAllActiveProjects';
     return this.http.get(actionUrl, {headers: this.headers})
       .map((response: Response) => <Project[]>response.json())
       .catch(this.handleError);
   }
-    public getAllProjectsWithPics = (): Observable<Project[]> => {
+  public getAllProjectsWithPics = (): Observable<Project[]> => {
     let actionUrl = Constants.apiServer + '/service/project/getAllProjects';
     return this.http.get(actionUrl, {headers: this.headers})
       .map((response: Response) => <Project[]>response.json())
@@ -131,6 +138,16 @@ export class BaseService {
       .catch(this.handleError);
   }
 
+
+  public savePayment = (parm: string): Observable<string> => {
+    let toAdd = JSON.stringify(parm);
+    let actionUrl = Constants.apiServer + '/service/user/savePayment';
+    return this.http.post(actionUrl, toAdd, {headers: this.headers})
+      .map((response: Response) => {
+        return response.json();
+      })
+      .catch(this.handleError);
+  }
   public sendMail = (contact: Contact): Observable<boolean> => {
     let toAdd = JSON.stringify(contact);
     let actionUrl = Constants.apiServer + '/service/base/sendMail';

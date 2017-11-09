@@ -16,9 +16,145 @@
 				<app-admin-menu></app-admin-menu>
 			</div>
 			<div class="ui-g-10 ui-sm-8">
-			
-				Finance
-				
+
+				<div class="row">
+
+					<form (ngSubmit)="search()" #searchForm="ngForm">
+						<div class="ui-grid ui-grid-responsive ui-fluid">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-2"></div>
+								<div class="ui-grid-col-6">
+									<input type="text" pInputText class="form-control" id="searchT"
+										required [(ngModel)]="searchText"
+										placeholder="{{USER_SEARCH_PARTS}}" name="searchT"
+										#searchT="ngModel">
+								</div>
+								<div class="ui-grid-col-2">
+									<button type="button" pButton icon="fa-search"
+										(click)="search()" label="Rechercher"
+										style="margin-top: 0px; height: 35px;"></button>
+								</div>
+								<div class="ui-grid-col-2"></div>
+							</div>
+							<div class="ui-grid-row" *ngIf="users">
+								<div class="ui-grid-col-2"></div>
+								<div class="table-responsive ui-grid-col-8">
+
+									<p-dataTable [value]="users" sortField="firstName"
+										selectionMode="single" [(selection)]="user" [rows]="5"
+										[paginator]="true" (onRowSelect)="getUserContribution()"
+										rowGroupMode="subheader"> <p-column
+										[style]="{'width':'25%'}" field="firstName" header="Prenom"></p-column>
+									<p-column [style]="{'width':'25%'}" field="lastName"
+										header="Nom"></p-column> <p-column [style]="{'width':'25%'}"
+										field="cityOrigin" header="Origine"></p-column> <p-column
+										[style]="{'width':'25%'}" field="cityResidence"
+										header="Residence"></p-column> </p-dataTable>
+
+								</div>
+								<div class="ui-grid-col-2"></div>
+							</div>
+						</div>
+					</form>
+					<br />
+					<div class="ui-grid ui-grid-responsive ui-fluid">
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-1"></div>
+							<div class="ui-grid-col-10">
+								<p-panel> <p-header> <img
+									src="assets/images/members/{{user.pic}}" width="25" height="25"
+									alt=""> {{user.firstName }} {{user.lastName}} </p-header>
+
+								<div class="ui-grid-row">
+
+									<div class="ui-grid-col-5" *ngIf="loggedinUser.canApprove">
+										<div class="ui-grid-row">
+											<div class="ui-grid-col-3">
+												<label i18n="@@project" for="project">Raison/Projet</label>
+											</div>
+											<div class="ui-grid-col-8">
+												<p-autoComplete [(ngModel)]="projet"
+													(onDropdownClick)="projectDropdown.handleDropdownClick($event)"
+													[suggestions]="projectDropdown.filteredProjects"
+													[dropdown]="true" id="project"
+													(completeMethod)="projectDropdown.filter($event)"
+													name="project" field="title" [size]="30"
+													placeholder="{{SELECT_PROJECT}}" [minLength]="1"
+													#project="ngModel"></p-autoComplete>
+												<div [hidden]="project.valid || project.pristine"
+													class="alert alert-danger" i18n="@@projectRequired">Projet
+													requis</div>
+											</div>
+											<div class="ui-grid-col-1"></div>
+										</div>
+
+										<div class="ui-grid-row">
+											<div class="ui-g-6 ui-md-3">
+												<label i18n="@@Montant" for="project">Montant</label>
+											</div>
+											<div class="ui-g-6 ui-md-8">
+												<input type="text" pInputText placeholder="Montant"
+													size="16" [(ngModel)]="payAmount" name="pAmount">
+
+											</div>
+											<div class="ui-grid-col-1"></div>
+										</div>
+
+										<div class="ui-grid-row">
+
+											<div class="ui-g-6 ui-md-3"></div>
+											<div class="ui-g-6 ui-md-8">
+												<p-radioButton name="currency" value="CFA" label="CFA"
+													[(ngModel)]="currencyCode"></p-radioButton>
+												<p-radioButton name="currency" value="USD" label="USD"
+													[(ngModel)]="currencyCode"></p-radioButton>
+												<p-radioButton name="currency" value="EURO" label="EURO"
+													[(ngModel)]="currencyCode"></p-radioButton>
+											</div>
+											<div class="ui-grid-col-1"></div>
+										</div>
+
+										<div class="ui-grid-row">
+											<div class="ui-g-6 ui-md-3"></div>
+											<div class="ui-g-6 ui-md-8">
+												<button type="button" pButton icon="fa-check"
+													(click)="savePayment()" label="Sauvegarder"></button>
+											</div>
+											<div class="ui-grid-col-1"></div>
+										</div>
+										
+										<div *ngIf="error" class="alert alert-info">{{error}}</div>
+									</div>
+
+									<div class="ui-grid-col-7">
+
+										<p-dataTable [value]="contributions" [rows]="4" [rows]="4"
+											[paginator]="true"> <p-column
+											[style]="{'width':'20%'}" field="date" header="Date">
+
+										<ng-template let-col let-cont="rowData" pTemplate="body">
+										<span class="col-date">{{ cont[ col.field ] |
+											date:'dd/MM/yy' }}</span> </ng-template> </p-column> <p-column [style]="{'width':'65%'}"
+											field="project" header="Projet"></p-column> <p-column
+											[style]="{'width':'15%'}" field="amount"
+											header="Montant (CFA)"></p-column> </p-dataTable>
+
+									</div>
+
+								</div>
+								</p-panel>
+							</div>
+							<div class="ui-grid-col-1"></div>
+
+						</div>
+					</div>
+
+				</div>
+
+				<br /> <br />
+				<div class="row">
+					<p-chart type="bar" [data]="data" [height]="75"></p-chart>
+				</div>
 			</div>
 		</div>
 	</div>

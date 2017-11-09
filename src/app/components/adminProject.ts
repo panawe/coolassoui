@@ -16,5 +16,6 @@ export class AdminProject implements OnInit {
     this.user = JSON.parse(Cookie.get('user'));
   }
   ngOnInit() {
+    
   }
 }

@@ -23,6 +23,7 @@ export class User {
   sex: string;
   pic: string;
   alive: boolean = true;
+  canApprove: boolean;
   cityOrigin: string;
   cityResidence: string;
   isOnline: boolean;
