@@ -18,7 +18,7 @@
 				<div class="page-content">
 
 					<p-tabView> <p-tabPanel header="{{I_AM_MEMBER}}"
-						leftIcon="fa-id-badge">
+						leftIcon="fa-id-badge" [selected]="action<=0">
 					<form (ngSubmit)="login()" #loginForm="ngForm">
 						<div class="form-group">
 							<label i18n="@@userNameOrEmail" for="email">E-mail <font color="red">*</font>
@@ -49,7 +49,7 @@
 					</form>
 
 					</p-tabPanel> <p-tabPanel header="{{I_AM_SUBSCRIBE}}"
-						leftIcon="fa-pencil-square-o">
+						leftIcon="fa-pencil-square-o" [selected]="action>0">
 
 					<form (ngSubmit)="saveUser()" #profileForm="ngForm">
 
@@ -107,14 +107,14 @@
 
 							<div class="ui-grid-col-6">
 								<div class="form-group">
-									<label i18n="@@cityResidence" for="cityResidence">Village/Ville
+									<label i18n="@@cityResidence" for="cityResidence">Lieu
 										de residence<font color="red">*</font>
 									</label> <input type="text" pInputText class="form-control"
 										id="cityResidence" required [(ngModel)]="user.cityResidence"
 										name="cityResidence" #cityResidence="ngModel">
 									<div [hidden]="cityResidence.valid || cityResidence.pristine"
-										class="alert alert-danger" i18n="@@cityResidenceRequired">Ville
-										de residence Requise</div>
+										class="alert alert-danger" i18n="@@cityResidenceRequired">Lieu
+										de residence Requis</div>
 								</div>
 							</div>
 							<div class="ui-grid-col-6">
@@ -137,14 +137,14 @@
 						<div class="ui-grid-row">
 							<div class="ui-grid-col-6">
 								<div class="form-group">
-									<label i18n="@@cityResidence" for="cityResidence">Village/Ville
+									<label i18n="@@cityResidence" for="cityResidence">Lieu
 										d'origine<font color="red">*</font>
 									</label> <input type="text" pInputText class="form-control"
 										id="cityResidence" required [(ngModel)]="user.cityOrigin"
 										name="cityResidence" #cityOrigin="ngModel">
 									<div [hidden]="cityOrigin.valid || cityOrigin.pristine"
-										class="alert alert-danger" i18n="@@cityResidenceRequired">Village/Ville
-										d'origine</div>
+										class="alert alert-danger" i18n="@@cityResidenceRequired">Lieu
+										d'origine requis</div>
 								</div>
 							</div>
 							<div class="ui-grid-col-6">

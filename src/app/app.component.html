@@ -31,7 +31,7 @@
 							class="label label-primary">Projets</span></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li *ngIf="user.id===0"><a href="#/login/"><span
+					<li *ngIf="user.id===0"><a href="#/login?action=0"><span
 							style="background-color: #5c9ccc; font-size: 1.6rem;"
 							class="label label-primary">Connexion</span></a></li>
 					<li *ngIf="user.id>0 && user.role===1"><a
@@ -47,7 +47,7 @@
 							style="background-color: #5c9ccc; font-size: 1.6rem;"
 							class="label label-primary">Déconnecter {{user.firstName
 								+' '+user.lastName}}</span></a></li>
-					<li *ngIf="user.id===0"><a href="#/login"><span
+					<li *ngIf="user.id===0"><a href="#/login?action=1"><span
 							style="background-color: #5c9ccc; font-size: 1.6rem;"
 							class="label label-primary">Inscription</span></a></li>
 				</ul>

@@ -28,6 +28,7 @@ export class Login implements OnInit {
   passwordSent = '';
   button = '';
   user: User;
+  action:number;
   msgs: Message[] = [];
   don: string;
   I_AM_MEMBER: string = Constants.I_AM_MEMBER;
@@ -45,9 +46,15 @@ export class Login implements OnInit {
     private userService: UserService,
     private baseService: BaseService,
     private globalEventsManager: GlobalEventsManager,
-    private cDropdown: CountryDropdown) {
+    private cDropdown: CountryDropdown,
+    private route: ActivatedRoute) {
     this.user = new User();
     this.countryDropdown = cDropdown;
+    
+    this.route.queryParams.subscribe(params => {
+      this.action = params["action"]; 
+      console.log("action ="+ this.action);
+    });
   }
 
   ngOnInit() {
