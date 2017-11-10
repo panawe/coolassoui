@@ -1,3 +1,5 @@
+<file-uploader></file-uploader>
+
 <div id="carousel-example-generic"
 	class="carousel slide cover overlay overflow-hidden max-height-100 cover-navbar-large-top margin-none"
 	data-ride="carousel">
@@ -9,6 +11,93 @@
 	</div>
 </div>
 
+<p-dialog header="Detail d'un projet" [(visible)]="displayDialog"
+	[responsive]="true" showEffect="fade" [modal]="true" width="750">
+<div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="project">
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-3">
+			<label for="projectDate">Date debut planifiee</label>
+		</div>
+		<div class="ui-grid-col-3">
+			<p-calendar id="projectedStartDate" [showIcon]="false"
+				[(ngModel)]="project.projectedStartDate"></p-calendar>
+		</div>
+		<div class="ui-grid-col-2">
+			<label for="projectDate">Date debut</label>
+		</div>
+		<div class="ui-grid-col-4">
+			<p-calendar id="startDate" [showIcon]="false"
+				[(ngModel)]="project.startDate"></p-calendar>
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-3">
+			<label for="projectDate">Date fin planifiee</label>
+		</div>
+		<div class="ui-grid-col-3">
+			<p-calendar id="projectedEndDate" [showIcon]="false"
+				[(ngModel)]="project.projectedEndDate"></p-calendar>
+		</div>
+		<div class="ui-grid-col-2">
+			<label for="projectDate">Date fin</label>
+		</div>
+		<div class="ui-grid-col-4">
+			<p-calendar id="endDate" [showIcon]="false"
+				[(ngModel)]="project.endDate"></p-calendar>
+		</div>
+	</div>
+
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-3">
+			<label for="author">Sponsors</label>
+		</div>
+		<div class="ui-grid-col-3">
+			<input pInputText id="author" [(ngModel)]="project.sponsors" />
+		</div>
+		<div class="ui-grid-col-2">
+			<label for="rank">Budget</label>
+		</div>
+		<div class="ui-grid-col-4">
+			<input pInputText id="budget" [(ngModel)]="project.budget" />
+		</div>
+
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-2">
+			<label for="title">Titre</label>
+		</div>
+		<div class="ui-grid-col-6">
+			<input pInputText id="title" [(ngModel)]="project.title" required />
+		</div>
+		<div class="ui-grid-col-2">
+			<label for="status">Active</label>
+		</div>
+		<div class="ui-grid-col-2">
+			<p-checkbox [(ngModel)]="project.status" binary="true" id="status"></p-checkbox>
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-4">
+			<label for="message">Description</label>
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-12">
+			<div [froalaEditor] [(froalaModel)]="project.description"></div>
+		</div>
+	</div>
+</div>
+<br />
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+<footer>
+	<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+		<button type="button" pButton icon="fa-close" (click)="delete()"
+			label="Supprimer"></button>
+		<button type="button" pButton icon="fa-check" (click)="save()"
+			label="Sauvegarder"></button>
+	</div>
+</footer> </p-dialog>
+
 <div class="bg-white" style="padding-left: 0px;">
 	<div class="container" style="padding-left: 0px;">
 		<div class="ui-grid-row">
@@ -16,11 +105,65 @@
 				<app-admin-menu></app-admin-menu>
 			</div>
 			<div class="ui-g-10 ui-sm-8">
-			
-				Projets
-				
+				<p-dataTable [value]="projects" selectionMode="single"
+					[(selection)]="selectedProject" expandableRows="true"
+					(onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5"
+					[responsive]="true"> <p-column expander="true"
+					styleClass="col-icon" [style]="{'width':'5%'}"></p-column> <p-column
+					*ngFor="let col of cols" [field]="col.field" [header]="col.header"
+					[style]="col.style" [sortable]="col.sortable" [filter]="col.filter">
+				<template *ngIf="col.type === 'string' || col.type === undefined"
+					let-col let-data="rowData" pTemplate type="body"> <span
+					class="col-string">{{ data[ col.field ] }}</span> </template> <template
+					*ngIf="col.type === 'Date'" let-col let-data="rowData" pTemplate
+					type="body"> <span class="col-date">{{ data[
+					col.field ] | date:'dd/MM/yy' }}</span> </template> <template
+					*ngIf="col.type === 'money'" let-col let-data="rowData" pTemplate
+					type="body"> <span class="col-currency">{{
+					data[col.field ] |number : '1.0-0' }}</span> </template> </p-column> <p-column field="id"
+					header="actions" [style]="{'width':'7%'}"> <template
+					let-data="rowData" let-rowIndex="rowIndex" pTemplate type="body">
+				<button type="button" pButton icon="fa-picture-o"
+					style="float: left" (click)="showDialogToUploadImage(data)">
+				</button>
+				</template> </p-column> <template let-project pTemplate="rowexpansion">
+				<div class="ui-grid ui-grid-responsive ui-fluid"
+					style="font-size: 16px; padding: 20px">
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-12">
+							<h2 class="title">{{project.title}}</h2>
+						</div>
+					</div>
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-12">
+							<p-carousel
+								headerText="Images - cliquez sur l'image pour elargir"
+								[value]="project.pics"
+								*ngIf="project.pics&&project.pics.length>0"> <ng-template
+								let-pic pTemplate="item"> <a
+								href="#/adminProject/" (click)="showLarge(pic.source)"> <img
+								src=" {{pic.source}}" alt="{{pic.alt}}" title="{{pic.title}}"
+								height="100" /></a> </ng-template> </p-carousel>
+						</div>
+					</div>
+					<div class="ui-grid-row">
+						<div [froalaView]="project.description"></div>
+					</div>
+				</div>
+
+				</template> <p-footer>
+				<div class="ui-helper-clearfix" style="width: 100%">
+					<button type="button" pButton icon="fa-plus" style="float: left"
+						(click)="showDialogToAdd()" label="{{ADD_LABEL}}"></button>
+				</div>
+				</p-footer> </p-dataTable>
+
+
 			</div>
 		</div>
 	</div>
 </div>
 
+<p-dialog header="Image" [(visible)]="displayPic" [responsive]="true"
+	showEffect="fade" [modal]="true" width="750"> <img
+	src="{{picName}}" alt="" width="100%" /> </p-dialog>

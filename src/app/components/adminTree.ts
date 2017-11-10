@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, NgZone} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, NgZone, ViewChild} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
 import {UserService} from '../services/user.service';
@@ -10,6 +10,7 @@ import {AppComponent} from '../app.component';
 import {FamilyTree} from '../models/familyTree';
 import {ChartModule, MenuItem, Message} from 'primeng/primeng';
 import {CountryDropdown} from './dropdowns/dropdown.country';
+import { FileUploader } from './fileUploader';
 
 @Component({
   selector: 'admin-tree',
@@ -282,7 +283,7 @@ export class AdminTree implements OnInit {
   ALIVE: string = Constants.ALIVE;
   DEAD: string = Constants.DEAD;
   public countryDropdown: CountryDropdown;
-
+  @ViewChild(FileUploader) fileUploader: FileUploader;
   constructor(
     private userService: UserService,
     private cDropdown: CountryDropdown) {
@@ -491,5 +492,10 @@ export class AdminTree implements OnInit {
         this.error = Constants.ERROR_OCCURRED;
       }
     }
+  }
+  
+   
+ showDialogToUploadImage(data) {
+    this.fileUploader.showDialogToUploadImage("members", data);
   }
 }

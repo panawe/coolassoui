@@ -1,3 +1,4 @@
+<file-uploader></file-uploader>
 <div id="carousel-example-generic"
 	class="carousel slide cover overlay overflow-hidden max-height-100 cover-navbar-large-top margin-none"
 	data-ride="carousel">
@@ -46,10 +47,16 @@
 										rowGroupMode="subheader"> <p-column
 										[style]="{'width':'25%'}" field="firstName" header="Prenom"></p-column>
 									<p-column [style]="{'width':'25%'}" field="lastName"
-										header="Nom"></p-column> <p-column [style]="{'width':'25%'}"
+										header="Nom"></p-column> <p-column [style]="{'width':'22%'}"
 										field="cityOrigin" header="Origine"></p-column> <p-column
-										[style]="{'width':'25%'}" field="cityResidence"
-										header="Residence"></p-column> </p-dataTable>
+										[style]="{'width':'22%'}" field="cityResidence"
+										header="Residence"></p-column> <p-column field="id"
+										header="Image" [style]="{'width':'6%'}"> <template
+										let-data="rowData" let-rowIndex="rowIndex" pTemplate
+										type="body"><img
+										src="assets/images/members/{{data.pic}}" width="25"
+										height="25" alt="">
+									  </template> </p-column></p-dataTable>
 
 								</div>
 								<div class="ui-grid-col-2"></div>
@@ -64,9 +71,11 @@
 						<div class="ui-grid-row">
 							<div class="ui-grid-col-1"></div>
 							<div class="ui-grid-col-10">
-								<p-panel> <p-header> <img
+								<p-panel> <p-header>
+									<a href="#/adminTree"
+										(click)="showDialogToUploadImage(user)">  <img
 									src="assets/images/members/{{user.pic}}" width="25" height="25"
-									alt=""> {{user.firstName }} {{user.lastName}} </p-header>
+									alt=""> </a> {{user.firstName }} {{user.lastName}} </p-header>
 
 								<div class="ui-grid-row">
 

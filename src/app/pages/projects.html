@@ -17,7 +17,7 @@
 		<div class="ui-grid-row">
 			<p-accordion> <p-accordionTab
 				*ngFor="let project of projects"
-				header="{{project.title + ' - Budget: '+ project.budget}}">
+				header="{{project.title + ' - Budget: '+ (project.budget |number : '1.0-0') +' CFA '}}">
 
 			<div class="ui-grid-row">
 
@@ -34,7 +34,12 @@
 					<p-dataTable [value]="project.contributions" [rows]="4" [rows]="4" [paginator]="true"> <p-column
 						[style]="{'width':'75%'}" field="member" header="Nom"></p-column>
 					<p-column [style]="{'width':'25%'}" field="amount"
-						header="Montant (CFA)"></p-column> </p-dataTable>
+						header="Montant (CFA)">
+						<ng-template  let-col 	let-data="rowData" pTemplate="item"> <span
+				class="col-currency">{{ data[col.field ]
+				|number : '1.0-0' }}</span> </ng-template>
+						
+						</p-column> </p-dataTable>
 
 
 				</div>

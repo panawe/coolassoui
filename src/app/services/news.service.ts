@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import { News } from '../models/news';
-import { Constants } from '../app.constants';
+import {Injectable} from '@angular/core';
+import {Http, Response, Headers} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
+import {News} from '../models/news';
+import {Constants} from '../app.constants';
 
 @Injectable()
-export class NewsService { 
+export class NewsService {
 
   private actionUrl: string;
   private headers: Headers;
@@ -25,13 +25,13 @@ export class NewsService {
   public getNews = (newsId: string): Observable<News> => {
     let toAdd = JSON.stringify(newsId);
     let actionUrl = Constants.apiServer + '/service/news/getNews';
-    return this.http.post(actionUrl, toAdd, { headers: this.headers })
+    return this.http.post(actionUrl, toAdd, {headers: this.headers})
       .map((response: Response) => {
         return response.json();
       })
       .catch(this.handleError);
   }
-  
+
   public getFirst3 = (): Observable<News[]> => {
     this.actionUrl = Constants.apiServer + '/service/news/getFirst3';
 
@@ -40,7 +40,7 @@ export class NewsService {
       .catch(this.handleError);
   }
 
-    public getLatestNews = (): Observable<News[]> => {
+  public getLatestNews = (): Observable<News[]> => {
     this.actionUrl = Constants.apiServer + '/service/news/getLatestNews';
 
     return this.http.get(this.actionUrl)
@@ -56,8 +56,9 @@ export class NewsService {
   }
   public save = (news: News): Observable<News> => {
     let toAdd = JSON.stringify(news);
+    console.log(toAdd);
     let actionUrl = Constants.apiServer + '/service/news/save';
-    return this.http.post(actionUrl, toAdd, { headers: this.headers })
+    return this.http.post(actionUrl, toAdd, {headers: this.headers})
       .map((response: Response) => {
         return response.json();
       })
@@ -67,7 +68,7 @@ export class NewsService {
   public delete = (news: News): Observable<Boolean> => {
     let toAdd = JSON.stringify(news);
     let actionUrl = Constants.apiServer + '/service/news/delete';
-    return this.http.post(actionUrl, toAdd, { headers: this.headers })
+    return this.http.post(actionUrl, toAdd, {headers: this.headers})
       .map((response: Response) => {
         if (response && response.json() == 'Success') {
           return true;

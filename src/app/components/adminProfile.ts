@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { User } from '../models/user';
 import { Constants } from '../app.constants';
 import { UserService } from '../services/user.service';
 import {CountryDropdown} from './dropdowns/dropdown.country';
+import { FileUploader } from './fileUploader';
 
 @Component({
   selector: 'admin-profile',
@@ -22,6 +23,7 @@ export class  AdminProfile implements OnInit {
   COUNTRY_ORIGIN: string = Constants.COUNTRY_ORIGIN;
   ALIVE: string = Constants.ALIVE;
   DEAD: string = Constants.DEAD;  
+  @ViewChild(FileUploader) fileUploader: FileUploader;
   constructor(private userService: UserService,
     private cDropdown: CountryDropdown) {
     this.countryDropdown = cDropdown;
@@ -62,5 +64,10 @@ export class  AdminProfile implements OnInit {
       }
     }
 
+  }
+  
+  
+ showDialogToUploadImage(data) {
+    this.fileUploader.showDialogToUploadImage("members", data);
   }
 }

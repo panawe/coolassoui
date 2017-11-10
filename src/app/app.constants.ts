@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class Constants {
   //public static apiServer: string = "http://localhost:8080/coolasso";
-  public static apiServer: string = "http://www.arelbou.com";  
+  public static apiServer: string = "http://www.arelbou.com";
   public static ABSENCES: string = "Absenses";
   public static ACTIF = "Active";
   public static ACTIVE = "Active?";
@@ -50,6 +50,11 @@ export class Constants {
   public static SELECT_PROJECT: string = "Selectioner le projet";
   public static ALIVE: string = "Vivant";
   public static DEAD: string = "Decede";
-  public static MISSING_REQUIRED_FIELD= "Veuillez remplir tous les champs requis";
-  public static SAME_SEX= "Les deux utilisateurs choisis sont de meme sexe";
+  public static MISSING_REQUIRED_FIELD = "Veuillez remplir tous les champs requis";
+  public static SAME_SEX = "Les deux utilisateurs choisis sont de meme sexe";
+  public static START_DATE = "Date debut";
+  public static END_DATE = "Date fin";
+  public static PROJECTED_START_DATE = "Date debut planifiee";
+  public static PROJECTED_END_DATE = "Date fin planifiee";
+  public static BUDGET = "Budget";
 }

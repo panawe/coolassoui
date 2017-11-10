@@ -1,3 +1,4 @@
+<file-uploader></file-uploader>
 <div id="carousel-example-generic"
 	class="carousel slide cover overlay overflow-hidden max-height-100 cover-navbar-large-top margin-none"
 	data-ride="carousel">
@@ -18,6 +19,9 @@
 			<div class="ui-g-10 ui-sm-8">
 				<p-accordion> <p-accordionTab
 					header="{{user.firstName +' '+user.lastName}}" [selected]="false">
+					<a href="#/adminProfile" (click)="showDialogToUploadImage(user)">
+					 <img src="assets/images/members/{{user.pic}}" width="110" height="110" alt="">
+					 </a>
 				</p-accordionTab> <p-accordionTab header="Details" [selected]="true">
 
 
