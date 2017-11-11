@@ -10,7 +10,12 @@ import {ProjectDropdown} from './dropdowns/dropdown.project';
 @Component({
   selector: 'admin-finance',
   templateUrl: '../pages/adminFinance.html',
-  providers: [BaseService, UserService, Constants, ProjectDropdown]
+  providers: [BaseService, UserService, Constants, ProjectDropdown],
+  styles: [` 
+* { 
+  margin: 0; 
+  padding: 0;
+}`]
 })
 export class AdminFinance implements OnInit {
   data: any;

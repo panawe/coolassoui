@@ -84,10 +84,10 @@
 			<div class="ui-g-2 ui-sm-4">
 				<app-admin-menu></app-admin-menu>
 			</div>
-			<div class="ui-g-10 ui-sm-8">
+			<div class="ui-g-10 ui-sm-8"  style="padding: 15px;">
 				<p-dataTable [value]="newss" selectionMode="single"
 					[(selection)]="selectedNews" expandableRows="true"
-					(onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5"
+					(onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15"
 					[responsive]="true"> <p-column expander="true"
 					styleClass="col-icon" [style]="{'width':'5%'}"></p-column> <p-column
 					*ngFor="let col of cols" [field]="col.field" [header]="col.header"

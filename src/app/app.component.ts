@@ -1,6 +1,4 @@
 import {Constants} from './app.constants';
-import {Advertisement} from './models/advertisement';
-import {Sponsor} from './models/sponsor';
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {User} from './models/user';
 import {Project} from './models/project';

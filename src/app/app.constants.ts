@@ -57,4 +57,7 @@ export class Constants {
   public static PROJECTED_START_DATE = "Date debut planifiee";
   public static PROJECTED_END_DATE = "Date fin planifiee";
   public static BUDGET = "Budget";
+  public static COST = "Cout";
+  public static URL = "URL";
+    public static DESCRIPTION = "Description";
 }

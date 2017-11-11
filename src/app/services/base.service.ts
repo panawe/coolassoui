@@ -2,13 +2,14 @@ import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import {Constants} from '../app.constants';
-import {Advertisement} from '../models/advertisement';
+import {Pub} from '../models/pub';
 import {Annonce} from '../models/annonce';
 import {ChartData} from '../models/chartData';
 import {Contact} from '../models/contact';
 import {Contribution} from '../models/contribution';
 import {Country} from '../models/country';
 import {Html} from '../models/html';
+import {Mail} from '../models/mail';
 import {News} from '../models/news';
 import {Project} from '../models/project';
 import {User} from '../models/user';
@@ -97,17 +98,10 @@ export class BaseService {
       .catch(this.handleError);
   }
 
-  public getAllSponsors = (): Observable<Project[]> => {
-    let actionUrl = Constants.apiServer + '/service/sponsor/getAllSponsors';
+  public getAllActivePubs = (): Observable<Pub[]> => {
+    let actionUrl = Constants.apiServer + '/service/pub/getAllActivePubs';
     return this.http.get(actionUrl, {headers: this.headers})
-      .map((response: Response) => <Project[]>response.json())
-      .catch(this.handleError);
-  }
-
-  public getAllAdvertisements = (): Observable<Advertisement[]> => {
-    let actionUrl = Constants.apiServer + '/service/marketing/getActiveMarketings';
-    return this.http.get(actionUrl, {headers: this.headers})
-      .map((response: Response) => <Advertisement[]>response.json())
+      .map((response: Response) => <Pub[]>response.json())
       .catch(this.handleError);
   }
 
@@ -148,16 +142,12 @@ export class BaseService {
       })
       .catch(this.handleError);
   }
-  public sendMail = (contact: Contact): Observable<boolean> => {
-    let toAdd = JSON.stringify(contact);
-    let actionUrl = Constants.apiServer + '/service/base/sendMail';
+  public sendMassMail = (mail: Mail): Observable<string> => {
+    const toAdd = JSON.stringify(mail);
+    const actionUrl = Constants.apiServer + '/service/base/sendMassMail';
     return this.http.post(actionUrl, toAdd, {headers: this.headers})
       .map((response: Response) => {
-        if (response && response.json() == 'Success') {
-          return true;
-        } else {
-          return false;
-        }
+        return response.json();
       })
       .catch(this.handleError);
   }

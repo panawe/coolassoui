@@ -9,7 +9,12 @@ import {User} from '../models/user';
 @Component({
   selector: 'app-admin-project',
   templateUrl: '../pages/adminProject.html',
-  providers: [ProjectService]
+  providers: [ProjectService],
+  styles: [` 
+* { 
+  margin: 0; 
+  padding: 0;
+}`]
 })
 export class AdminProject implements OnInit, OnDestroy {
 

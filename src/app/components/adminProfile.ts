@@ -9,7 +9,12 @@ import { FileUploader } from './fileUploader';
 @Component({
   selector: 'admin-profile',
   templateUrl: '../pages/adminProfile.html',  
-  providers: [UserService, Constants, CountryDropdown] 
+  providers: [UserService, Constants, CountryDropdown] ,
+  styles: [` 
+* { 
+  margin: 0; 
+  padding: 0;
+}`]
 })
 export class  AdminProfile implements OnInit {
 

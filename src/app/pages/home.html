@@ -61,10 +61,10 @@
 				<!-- <ol class="carousel-indicators" id="carousel-indicators_adv"></ol> -->
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner" id="carousel-inner_adv">
-					<div class="item {{mark.id===1?'active':''}}"
-						*ngFor="let mark of marketings">
-						<a href="{{mark.link}}"> <img src="{{mark.imagePath}}"
-							alt="{{mark.description}}"
+					<div class="item {{pub.id===1?'active':''}}"
+						*ngFor="let pub of pubs">
+						<a href="{{pub.link}}"> <img src="assets/images/pubs/{{pub.pic}}"
+							alt="{{pub.description}}"
 							style="max-height: 200px; width: 100%;" />
 						</a>
 					</div>

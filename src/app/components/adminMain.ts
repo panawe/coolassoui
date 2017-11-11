@@ -9,12 +9,17 @@ import {BaseService} from '../services/base.service';
 @Component({
   selector: 'admin-main',
   templateUrl: '../pages/adminMain.html',
-  providers: [BaseService, Constants]
+  providers: [BaseService, Constants],
+  styles: [` 
+* { 
+  margin: 0; 
+  padding: 0;
+}`]
 })
 export class AdminMain implements OnInit {
 
   public user: User;
-  statuts: Html= new Html();
+  statuts: Html = new Html();
   reglements: Html = new Html();
   msg: string;
   public mail: Mail = new Mail();
@@ -25,7 +30,7 @@ export class AdminMain implements OnInit {
   }
 
   onTabChange(evt) {
-    this.msg="";
+    this.msg = "";
     if (evt.index == 0) {
       //mail
     } else if (evt.index == 1) {
@@ -49,7 +54,7 @@ export class AdminMain implements OnInit {
   }
 
   saveHtml(id: number) {
-    this.msg="";
+    this.msg = "";
     if (id == 1) {//status
       if (this.statuts.id == null || this.statuts.id == 0) {
         this.statuts.id = 1;
@@ -72,8 +77,18 @@ export class AdminMain implements OnInit {
         () => console.log('Save Reglements Complete'));
     }
   }
-  
-  sendMail(){
-  
+
+  sendMassMail() {
+    if (this.mail.body == null || this.mail.subject == null) {
+      this.msg = "Saisissez le contenu et le sujet du mail";
+    } else {
+      this.mail.sender= this.user;
+      this.baseService.sendMassMail(this.mail)
+        .subscribe((data: string) => {
+          this.msg = data;
+        },
+        error => console.log(error),
+        () => console.log('sendMassMail Complete'));
+    }
   }
 }

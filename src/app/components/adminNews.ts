@@ -9,7 +9,12 @@ import { User } from '../models/user';
 @Component({
   selector: 'app-admin-news',
   templateUrl: '../pages/adminNews.html',
-  providers: [NewsService]
+  providers: [NewsService],
+  styles: [` 
+* { 
+  margin: 0; 
+  padding: 0;
+}`]
 })
 export class AdminNews implements OnInit, OnDestroy {
 

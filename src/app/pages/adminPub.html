@@ -1,3 +1,5 @@
+<file-uploader></file-uploader>
+
 <div id="carousel-example-generic"
 	class="carousel slide cover overlay overflow-hidden max-height-100 cover-navbar-large-top margin-none"
 	data-ride="carousel">
@@ -15,12 +17,121 @@
 			<div class="ui-g-2 ui-sm-4">
 				<app-admin-menu></app-admin-menu>
 			</div>
-			<div class="ui-g-10 ui-sm-8">
-			
-				Pub
-				
+			<div class="ui-g-10 ui-sm-8"  style="padding: 15px;">
+				<p-dataTable [value]="pubs" selectionMode="single"
+					[(selection)]="selectedPub" expandableRows="true"
+					(onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15"
+					[responsive]="true"> <p-column expander="true"
+					styleClass="col-icon" [style]="{'width':'5%'}"></p-column> <p-column
+					*ngFor="let col of cols" [field]="col.field" [header]="col.header"
+					[style]="col.style" [sortable]="col.sortable" [filter]="col.filter">
+				<template *ngIf="col.type === 'string' || col.type === undefined"
+					let-col let-data="rowData" pTemplate type="body"> <span
+					class="col-string">{{ data[ col.field ] }}</span> </template> <template
+					*ngIf="col.type === 'Date'" let-col let-data="rowData" pTemplate
+					type="body"> <span class="col-date">{{ data[
+					col.field ] | date:'dd/MM/yy' }}</span> </template> <template
+					*ngIf="col.type === 'money'" let-col let-data="rowData" pTemplate
+					type="body"> <span class="col-currency">{{
+					data[col.field ] |number : '1.0-0' }}</span> </template> </p-column> <p-column field="id"
+					header="actions" [style]="{'width':'7%'}"> <template
+					let-data="rowData" let-rowIndex="rowIndex" pTemplate type="body">
+				<button type="button" pButton icon="fa-picture-o"
+					style="float: left" (click)="showDialogToUploadImage(data)">
+				</button>
+				</template> </p-column> <template let-pub pTemplate="rowexpansion">
+				<div class="ui-grid ui-grid-responsive ui-fluid"
+					style="font-size: 16px; padding: 20px">
+ 
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-12">						
+						 <img src="assets/images/pubs/{{pub.pic}}"
+							alt="{{pub.description}}"
+							style="max-height: 200px;" /> 
+						</div>
+					</div>
+				</div>
+
+				</template> <p-footer>
+				<div class="ui-helper-clearfix" style="width: 100%">
+					<button type="button" pButton icon="fa-plus" style="float: left"
+						(click)="showDialogToAdd()" label="{{ADD_LABEL}}"></button>
+				</div>
+				</p-footer> </p-dataTable>
+
+
 			</div>
 		</div>
 	</div>
 </div>
 
+
+<p-dialog header="Detail d'une publicite" [(visible)]="displayDialog"
+	[responsive]="true" showEffect="fade" [modal]="true" width="750">
+<div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="pub">
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-3">
+			<label for="beginDate">Date debut</label>
+		</div>
+		<div class="ui-grid-col-3">
+			<p-calendar id="beginDate" [showIcon]="false"
+				[(ngModel)]="pub.beginDate"></p-calendar>
+		</div>
+		<div class="ui-grid-col-2">
+			<label for="endDate">Date fin</label>
+		</div>
+		<div class="ui-grid-col-4">
+			<p-calendar id="endDate" [showIcon]="false" [(ngModel)]="pub.endDate"></p-calendar>
+		</div>
+	</div>
+
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-3">
+			<label for="Rang">Rang</label>
+		</div>
+		<div class="ui-grid-col-3">
+			<input pInputText id="Rang" [(ngModel)]="pub.rank" />
+		</div>
+		<div class="ui-grid-col-2">
+			<label for="Cout">Cout</label>
+		</div>
+		<div class="ui-grid-col-4">
+			<input pInputText id="Cout" [(ngModel)]="pub.cost" />
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-2">
+			<label for="URL">URL</label>
+		</div>
+		<div class="ui-grid-col-6">
+			<input pInputText id="URL" [(ngModel)]="pub.link" required />
+		</div>
+		<div class="ui-grid-col-2">
+			<label for="status">Active</label>
+		</div>
+		<div class="ui-grid-col-2">
+			<p-checkbox [(ngModel)]="pub.status" binary="true" id="status"></p-checkbox>
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-4">
+			<label for="message">Description</label>
+		</div>
+	</div>
+	<div class="ui-grid-row">
+		<div class="ui-grid-col-12">
+			<input pInputText id="description" [(ngModel)]="pub.description"
+				required />
+		</div>
+	</div>
+</div>
+<br />
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+<footer>
+	<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+		<button type="button" pButton icon="fa-close" (click)="delete()"
+			label="Supprimer"></button>
+		<button type="button" pButton icon="fa-check" (click)="save()"
+			label="Sauvegarder"></button>
+	</div>
+</footer> </p-dialog>

@@ -1,5 +1,5 @@
 import {Constants} from '../app.constants';
-import {Advertisement} from '../models/advertisement';
+import {Pub} from '../models/pub';
 import {Contribution} from '../models/contribution';
 import {News} from '../models/news';
 import {Project} from '../models/project';
@@ -21,7 +21,7 @@ import {Cookie} from 'ng2-cookies/ng2-cookies';
 
 export class Home implements OnInit {
   user: User;
-  marketings: Advertisement[];
+  pubs: Pub[];
   PROJECT: string = Constants.PROJECT;
   SELECT_PROJECT: string = Constants.SELECT_PROJECT;
   payAmount: number;
@@ -54,10 +54,10 @@ export class Home implements OnInit {
       }
     }
 
-    this.baseService.getAllAdvertisements()
-      .subscribe((data: Advertisement[]) => {
-        this.marketings = data;
-        console.log(this.marketings);
+    this.baseService.getAllActivePubs()
+      .subscribe((data: Pub[]) => {
+        this.pubs = data;
+        console.log(this.pubs);
       },
       error => console.log(error),
       () => console.log('Get All Sponsors Complete'));
@@ -93,7 +93,7 @@ export class Home implements OnInit {
       Cookie.set('don', this.payAmount + "|" + this.currencyCode + "|" + this.projet.id);
       this.router.navigate(["/login"]);
     } else {
-      const parm: string =  this.payAmount + "|" + this.currencyCode + "|" + this.projet.id + "|" +  this.user.id ;
+      const parm: string = this.payAmount + "|" + this.currencyCode + "|" + this.projet.id + "|" + this.user.id;
       this.baseService.createPayment(parm).subscribe((data: string) => {
         window.location.href = data;
         console.log(data);

@@ -15,7 +15,7 @@
 			<div class="ui-g-2 ui-sm-4">
 				<app-admin-menu></app-admin-menu>
 			</div>
-			<div class="ui-g-10 ui-sm-8">
+			<div class="ui-g-10 ui-sm-8"  style="padding: 15px;">
 				<p-tabView (onChange)="onTabChange($event)"> <p-tabPanel
 					header="E-MAIL" leftIcon="fa-envelope-o">
 				<div class="ui-grid-row">
@@ -33,13 +33,13 @@
 				<div class="ui-grid-row">
 					<div class="ui-grid-col-6">
 						<button pButton type="submit" icon="fa-envelope-o"
-							(click)="sendMail()"
+							(click)="sendMassMail()"
 							style="margin-top: 0px; width: 100%; height: 50px;"
 							label="Envoyer"></button>
 
 					</div>
 
-					<div class="ui-grid-col-6"><div *ngIf="msg" class="alert alert-info">{{msg}}</div></div>
+					<div class="ui-grid-col-6"><div *ngIf="msg" class="alert alert-info" style="margin-top: 0px; width: 100%; height: 50px;">{{msg}}</div></div>
 				</div>
 				</p-tabPanel> <p-tabPanel header="STATUTS" leftIcon="fa-file-text">
 
