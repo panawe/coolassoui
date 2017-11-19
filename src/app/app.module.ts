@@ -13,6 +13,7 @@ import {Arbre} from './components/tree';
 import {Statuts} from './components/statuts';
 import {Reglements} from './components/reglements';
 import {Projects} from './components/projects';
+import {VideoImage} from './components/videoImage';
 import {NewsSingle} from './components/newsSingle';
 import {CommonSharedModule} from './modules/common.shared.module';
 import {FroalaViewModule} from 'angular-froala-wysiwyg';
@@ -24,7 +25,7 @@ import {GlobalEventsManager} from './services/globalEventsManager';
 
 @NgModule({
   declarations: [
-    AppComponent, Home, Login, Arbre, Statuts, Reglements, Projects, NewsSingle, Donate
+    AppComponent, Home, Login, Arbre, Statuts, Reglements, Projects, NewsSingle, Donate, VideoImage
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, FormsModule, HttpModule, CommonSharedModule, FroalaViewModule.forRoot(),

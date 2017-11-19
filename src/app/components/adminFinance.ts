@@ -26,6 +26,7 @@ export class AdminFinance implements OnInit {
   contributions: Contribution[];
   projet: Project;
   payAmount: number;
+  anonymous: boolean = false;
   currencyCode: string = "CFA";
   USER_SEARCH_PARTS: string = Constants.USER_SEARCH_PARTS;
   SELECT_PROJECT: string = Constants.SELECT_PROJECT;
@@ -81,7 +82,8 @@ export class AdminFinance implements OnInit {
         this.error = "Entree le montant";
       }
     } else {
-      const parm: string = this.payAmount + "|" + this.currencyCode + "|" + this.projet.id + "|" + this.user.id + "|" + this.loggedinUser.id;
+      const parm: string = this.payAmount + "|" + this.currencyCode + "|" + this.projet.id + "|" + this.user.id + "|" + this.loggedinUser.id +
+        "|" + this.anonymous;
       this.baseService.savePayment(parm).subscribe((data: string) => {
         this.error = data;
         this.payAmount = null;

@@ -26,13 +26,28 @@
 		<div class="v-bottom">
 			<div class="container">
 				<div class="page-section">
-					<h1 class="text-h1 text-overlay">Association des Resortissants
-						de Lama Bou</h1>
-					<p class="lead text-overlay">E-mail:arelboutg@gmail.com |
-						Recontre tous les premiers dimanches du mois</p>
-					<p class="lead text-overlay">
-						<strong> <font color="green"> A.RE.L.BOU</font></strong>
-					</p>
+					<div class="row">
+						<div class="ui-g-8 ui-sm-8">
+							<h1 class="text-h1 text-overlay">Association des
+								Resortissants de Lama Bou</h1>
+							<p class="lead text-overlay">E-mail:arelboutg@gmail.com |
+								Recontre: 1er dimanche du mois</p>
+						</div>
+
+						<div class="ui-g-4 ui-sm-4">
+							<p class="lead text-overlay">
+								<a href="#/videoImage" style="color: white;"
+									onMouseOver="this.style.color='#00FF00'"
+									onMouseOut="this.style.color='#FFFFFF'"> <i
+									class="fa fa-picture-o  fa-2x" aria-hidden="true"> <strong>
+											LAMA BOU <br /> En Image/Video
+									</strong>
+								</i>
+								</a>
+							</p>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -63,8 +78,8 @@
 				<div class="carousel-inner" id="carousel-inner_adv">
 					<div class="item {{pub.id===1?'active':''}}"
 						*ngFor="let pub of pubs">
-						<a href="{{pub.link}}"> <img src="assets/images/pubs/{{pub.pic}}"
-							alt="{{pub.description}}"
+						<a href="{{pub.link}}"> <img
+							src="assets/images/pubs/{{pub.pic}}" alt="{{pub.description}}"
 							style="max-height: 200px; width: 100%;" />
 						</a>
 					</div>
@@ -132,12 +147,10 @@
 					<p-dataTable [value]="contributions" [rows]="4"> <p-column
 						[style]="{'width':'75%'}" field="member" header="Nom"></p-column>
 					<p-column [style]="{'width':'25%'}" field="amount"
-						header="Montant (CFA)">
-						
-						<ng-template  let-col 	let-data="rowData" pTemplate="item"> <span
-				class="col-currency">{{ data[col.field ]
-				|number : '1.0-0' }}</span> </ng-template>
-						</p-column> </p-dataTable>
+						header="Montant (CFA)"> <ng-template let-col
+						let-data="rowData" pTemplate="item"> <span
+						class="col-currency">{{ data[col.field ] |number : '1.0-0'
+						}}</span> </ng-template> </p-column> </p-dataTable>
 				</div>
 			</div>
 			<div *ngIf="error" class="alert alert-danger">{{error}}</div>

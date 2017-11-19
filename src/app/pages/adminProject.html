@@ -136,14 +136,20 @@
 					</div>
 					<div class="ui-grid-row">
 						<div class="ui-grid-col-12">
-							<p-carousel
-								headerText="Images - cliquez sur l'image pour elargir"
-								[value]="project.pics"
-								*ngIf="project.pics&&project.pics.length>0"> <ng-template
-								let-pic pTemplate="item"> <a
-								href="#/adminProject/" (click)="showLarge(pic.source)"> <img
-								src=" {{pic.source}}" alt="{{pic.alt}}" title="{{pic.title}}"
-								height="100" /></a> </ng-template> </p-carousel>
+							<div class="progress">
+						IMAGE DU PROJET(cliquez sur l'image pour l'agrandir)
+						<div class="progress-bar bg-info" role="progressbar"
+							style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+							aria-valuemax="100"></div>
+					</div>
+					<div *ngIf="project.pics&&project.pics.length>0">
+						<a class="example-image-link" href="{{image.source}}"
+							data-lightbox="example-set" data-title="{{image.title}}"
+							*ngFor="let image of project.pics"> <img
+							class="example-image" alt="{{image.title}}"
+							src="{{image.source}}" height="80"  alt="">
+						</a>
+					</div>
 						</div>
 					</div>
 					<div class="ui-grid-row">

@@ -23,6 +23,8 @@ export class AdminMenu implements OnInit {
   public adminProject: string;
   public adminFinance: string;
   public adminProfile: string;
+    public adminVideo: string;
+    public adminImage: string;
   user: User;
   constructor(
     private route: ActivatedRoute
@@ -48,6 +50,8 @@ export class AdminMenu implements OnInit {
         this.adminMain = params['adminMain'];
         this.adminPub = params['adminPub'];
         this.adminNews = params['adminNews'];
+        this.adminImage = params['adminImage'];
+        this.adminVideo = params['adminVideo'];
         this.adminProject = params['adminProject'];
         this.adminFinance = params['adminFinance'];
         this.adminProfile = params['adminProfile'];

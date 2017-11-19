@@ -7,10 +7,12 @@ import {Statuts} from './components/statuts';
 import {Reglements} from './components/reglements';
 import {Projects} from './components/projects';
 import {Donate} from './components/donate';
+import {VideoImage} from './components/videoImage';
 import {NewsSingle} from './components/newsSingle';
 export const routes: Routes = [
   {path: 'home', component: Home},
   {path: 'login', component: Login},
+  {path: 'videoImage', component: VideoImage},
   {path: 'donate', component: Donate},
   {path: 'newsSingle', component: NewsSingle},
   {path: 'statuts', component: Statuts},

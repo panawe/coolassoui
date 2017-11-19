@@ -59,5 +59,8 @@ export class Constants {
   public static BUDGET = "Budget";
   public static COST = "Cout";
   public static URL = "URL";
-    public static DESCRIPTION = "Description";
+  public static DESCRIPTION = "Description";
+  public static DELETE_LABEL = "Supprimer";
+  public static LINK="Lien";
+  public static GROUP="Groupe";
 }

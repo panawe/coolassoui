@@ -1,0 +1,62 @@
+<div id="carousel-example-generic"
+	class="carousel slide cover overlay overflow-hidden max-height-100 cover-navbar-large-top margin-none"
+	data-ride="carousel">
+
+	<div class="carousel-inner" role="listbox">
+		<div class="item active">
+			<img src="assets/images/bg-top.jpg" width="100%" alt="Slider">
+		</div>
+	</div>
+</div>
+
+<div class="bg-white" style="padding-left: 0px;">
+	<div class="container" style="padding-left: 10px;">
+		<div class="ui-grid-row">
+			<div class="ui-g-1 ui-sm-1"></div>
+			<div class="ui-g-10 ui-sm-10">
+
+				<div class="progress">
+					LAMA BOU EN IMAGES (cliquez sur l'image pour l'agrandir)
+					<div class="progress-bar bg-info" role="progressbar"
+						style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+						aria-valuemax="100"></div>
+				</div>
+				<div class="row">
+					<div>
+						<a class="example-image-link"
+							href="assets/images/gallery/{{image.pic}}"
+							data-lightbox="example-set" data-title="{{image.description}}"
+							*ngFor="let image of images"> <img class="example-image"
+							alt="{{image.description}}"
+							src="assets/images/gallery/{{image.pic}}" height="80" alt="">
+						</a>
+					</div>
+
+				</div>
+				<br /> <br />
+				<div class="progress">
+					LAMA BOU EN VIDEOS (double cliquez pour jouer en plein ecran)
+					<div class="progress-bar bg-info" role="progressbar"
+						style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+						aria-valuemax="100"></div>
+				</div>
+
+				<div class="row">
+
+					<div class="ui-g" >
+						<div class="ui-g-12 ui-md-3 ui-lg-3" *ngFor="let video of videos">
+							<iframe class="video-iframe"
+								[src]="sanitize(video.link)" frameborder="0"
+								allowfullscreen></iframe>
+							<br /> <strong>{{video.videoDate|date:'dd/MM/yyyy'}}
+							</strong>: {{video.description}}
+						</div> 
+					</div>
+
+				</div>
+
+			</div>
+			<div class="ui-g-1 ui-sm-1"></div>
+		</div>
+	</div>
+</div>

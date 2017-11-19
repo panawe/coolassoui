@@ -7,6 +7,8 @@ import {AdminProject} from '../components/adminProject';
 import {AdminFinance} from '../components/adminFinance';
 import {AdminPub} from '../components/adminPub';
 import {AdminNews} from '../components/adminNews';
+import {AdminVideo} from '../components/adminVideo';
+import {AdminImage} from '../components/adminImage';
 import {AdminMenu} from '../components/menu/adminMenu';
 import {CommonSharedModule} from './common.shared.module';
 import { FroalaEditorModule,FroalaViewModule } from 'angular-froala-wysiwyg';
@@ -16,6 +18,8 @@ const routes: Routes = [
   {path: 'adminMain', component: AdminMain},
   {path: 'adminTree', component: AdminTree},
   {path: 'adminNews', component: AdminNews},
+  {path: 'adminVideo', component: AdminVideo},
+  {path: 'adminImage', component: AdminImage},
   {path: 'adminProject', component: AdminProject},
   {path: 'adminFinance', component: AdminFinance},
   {path: 'adminProfile', component: AdminProfile},
@@ -29,7 +33,8 @@ const routes: Routes = [
 
   exports: [CommonSharedModule],
 
-  declarations: [FileUploader, AdminMenu, AdminMain, AdminTree, AdminProfile, AdminNews, AdminProject, AdminFinance, AdminPub],
+  declarations: [FileUploader, AdminMenu, AdminMain, AdminTree, AdminProfile,
+    AdminVideo, AdminImage,AdminNews, AdminProject, AdminFinance, AdminPub],
 
   providers: []
 })
