@@ -1,3 +1,4 @@
+import { Transaction } from './Transaction';
 import {Contribution} from './contribution';
 import {Picture} from './picture';
 export class Project {
@@ -14,4 +15,5 @@ export class Project {
   hasPhoto: boolean;
   pics: Picture[];
   contributions: Contribution[];
+  expenses: Transaction[];
 }

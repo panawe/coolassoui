@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
 import {User} from '../models/user';
 import {Constants} from '../app.constants';
+import {Transaction} from '../models/Transaction';
 import {Contribution} from '../models/contribution';
 import {Project} from '../models/project';
 import {BaseService} from '../services/base.service';
@@ -23,11 +24,8 @@ export class AdminFinance implements OnInit {
   public loggedinUser: User;
   searchText: string;
   users: User[];
-  contributions: Contribution[];
-  projet: Project;
-  payAmount: number;
-  anonymous: boolean = false;
-  currencyCode: string = "CFA";
+  transaction: Transaction = new Transaction();
+  transactions: Transaction[] = [];
   USER_SEARCH_PARTS: string = Constants.USER_SEARCH_PARTS;
   SELECT_PROJECT: string = Constants.SELECT_PROJECT;
   error: string;
@@ -41,7 +39,7 @@ export class AdminFinance implements OnInit {
   }
   ngOnInit() {
     this.user = JSON.parse(Cookie.get('user'));
-    this.getUserContribution();
+    this.getUserTransactions();
     this.baseService.getBudgetGraph()
       .subscribe((data: any) => {
         this.data = data;
@@ -64,10 +62,10 @@ export class AdminFinance implements OnInit {
     }
   }
 
-  getUserContribution() {
-    this.baseService.getUserContributions(this.user)
+  getUserTransactions() {
+    this.baseService.getUserTransactions(this.user)
       .subscribe((data: any) => {
-        this.contributions = data;
+        this.transactions = data;
       },
       error => console.log(error),
       () => console.log('Get budget Complete'));
@@ -75,20 +73,22 @@ export class AdminFinance implements OnInit {
 
   savePayment() {
     this.error = "";
-    if (this.projet == null || this.payAmount == null || this.payAmount <= 0) {
-      if (this.projet == null) {
+    if (this.transaction.project == null || this.transaction.amount == null || this.transaction.amount <= 0) {
+      if (this.transaction.project == null) {
         this.error = "Selectionner le projet";
       } else {
         this.error = "Entree le montant";
       }
     } else {
-      const parm: string = this.payAmount + "|" + this.currencyCode + "|" + this.projet.id + "|" + this.user.id + "|" + this.loggedinUser.id +
-        "|" + this.anonymous;
-      this.baseService.savePayment(parm).subscribe((data: string) => {
+      this.transaction.modifiedBy = this.loggedinUser.id;
+      if (this.transaction.io == 1) {
+        this.transaction.user = this.user;
+      }else{
+        this.transaction.user = this.loggedinUser;
+      }
+      this.baseService.savePayment(this.transaction).subscribe((data: string) => {
         this.error = data;
-        this.payAmount = null;
-        this.projet = null;
-        this.getUserContribution();
+        this.putInTable();
         this.baseService.getBudgetGraph()
           .subscribe((data: any) => {
             this.data = data;
@@ -105,6 +105,26 @@ export class AdminFinance implements OnInit {
         }
       );
     }
+  }
 
+  putInTable() {
+    if (this.transaction) {
+      this.transactions.push(this.transaction);
+    } else {
+      this.transactions[this.findSelectedIndex()] = this.transaction;
+    }
+    var onTheFly: Transaction[] = [];
+    onTheFly.push(...this.transactions);
+    this.transactions = onTheFly;
+
+    this.resetData();
+  }
+
+  resetData() {
+    this.transaction = new Transaction();
+  }
+
+  findSelectedIndex(): number {
+    return this.transactions.indexOf(this.transaction);
   }
 }

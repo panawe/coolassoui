@@ -3,9 +3,9 @@ export class News {
   title: string;
   newsDate: Date;
   message: string;
-  shortMessage:string;
+  shortMessage: string;
   author: string;
   pic: string;
-  status: boolean;
+  status: boolean = true;
   rank: number;
 }

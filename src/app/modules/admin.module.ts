@@ -7,6 +7,7 @@ import {AdminProject} from '../components/adminProject';
 import {AdminFinance} from '../components/adminFinance';
 import {AdminPub} from '../components/adminPub';
 import {AdminNews} from '../components/adminNews';
+import {AdminRapport} from '../components/adminRapport';
 import {AdminVideo} from '../components/adminVideo';
 import {AdminImage} from '../components/adminImage';
 import {AdminMenu} from '../components/menu/adminMenu';
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'adminMain', component: AdminMain},
   {path: 'adminTree', component: AdminTree},
   {path: 'adminNews', component: AdminNews},
+  {path: 'adminRapport', component: AdminRapport},
   {path: 'adminVideo', component: AdminVideo},
   {path: 'adminImage', component: AdminImage},
   {path: 'adminProject', component: AdminProject},
@@ -33,7 +35,7 @@ const routes: Routes = [
 
   exports: [CommonSharedModule],
 
-  declarations: [FileUploader, AdminMenu, AdminMain, AdminTree, AdminProfile,
+  declarations: [FileUploader, AdminMenu, AdminMain, AdminTree, AdminProfile,AdminRapport,
     AdminVideo, AdminImage,AdminNews, AdminProject, AdminFinance, AdminPub],
 
   providers: []

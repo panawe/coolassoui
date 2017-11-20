@@ -21,7 +21,7 @@
 
 			<div class="ui-grid-row">
 
-				<div class="ui-grid-col-6">
+				<div class="ui-grid-col-4">
 					<div class="progress">
 						IMAGE DU PROJET(cliquez sur l'image pour l'agrandir)
 						<div class="progress-bar bg-info" role="progressbar"
@@ -33,12 +33,17 @@
 							data-lightbox="example-set" data-title="{{image.title}}"
 							*ngFor="let image of project.pics"> <img
 							class="example-image" alt="{{image.title}}"
-							src="{{image.source}}"  height="80"  alt="">
+							src="{{image.source}}" height="80" alt="">
 						</a>
 					</div>
 				</div>
-				<div class="ui-grid-col-6">
-
+				<div class="ui-grid-col-4">
+					<div class="progress">
+						Cotisations
+						<div class="progress-bar bg-info" role="progressbar"
+							style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+							aria-valuemax="100"></div>
+					</div>
 					<p-dataTable [value]="project.contributions" [rows]="4" [rows]="4"
 						[paginator]="true"> <p-column
 						[style]="{'width':'75%'}" field="member" header="Nom"></p-column>
@@ -47,6 +52,29 @@
 						let-data="rowData" pTemplate="item"> <span
 						class="col-currency">{{ data[col.field ] |number : '1.0-0'
 						}}</span> </ng-template> </p-column> </p-dataTable>
+
+
+				</div>
+
+				<div class="ui-grid-col-4">
+					<div class="progress">
+						Depenses
+						<div class="progress-bar bg-info" role="progressbar"
+							style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+							aria-valuemax="100"></div>
+					</div>
+					<p-dataTable [value]="project.expenses" [rows]="4" [rows]="4"
+						[paginator]="true"> <p-column
+						[style]="{'width':'25%'}" field="createDate" header="Date">
+
+					<ng-template let-col let-cont="rowData" pTemplate="body">
+					<span class="col-date">{{ cont[ col.field ] |
+						date:'dd/MM/yy' }}</span> </ng-template> </p-column> <p-column [style]="{'width':'25%'}"
+						field="amount" header="Montant (CFA)"> <ng-template
+						let-col let-data="rowData" pTemplate="item"> <span
+						class="col-currency">{{ data[col.field ] |number : '1.0-0'
+						}}</span> </ng-template> </p-column> <p-column [style]="{'width':'50%'}" field="comment"
+						header="Notes"></p-column></p-dataTable>
 
 
 				</div>

@@ -15,7 +15,7 @@
 			<div class="ui-g-2 ui-sm-4">
 				<app-admin-menu></app-admin-menu>
 			</div>
-			<div class="ui-g-10 ui-sm-8"  style="padding: 15px;">
+			<div class="ui-g-10 ui-sm-8" style="padding: 15px;">
 
 				<div class="row">
 
@@ -49,13 +49,12 @@
 										header="Nom"></p-column> <p-column [style]="{'width':'22%'}"
 										field="cityOrigin" header="Origine"></p-column> <p-column
 										[style]="{'width':'22%'}" field="cityResidence"
-										header="Residence"></p-column><p-column field="id"
+										header="Residence"></p-column> <p-column field="id"
 										header="Image" [style]="{'width':'6%'}"> <template
 										let-data="rowData" let-rowIndex="rowIndex" pTemplate
 										type="body"> <img
 										src="assets/images/members/{{data.pic}}" width="25"
-										height="25" alt="">
-								  </template> </p-column> </p-dataTable>
+										height="25" alt=""> </template> </p-column> </p-dataTable>
 
 								</div>
 								<div class="ui-grid-col-2"></div>
@@ -79,7 +78,7 @@
 												<label i18n="@@project" for="project">Raison/Projet</label>
 											</div>
 											<div class="ui-grid-col-8">
-												<p-autoComplete [(ngModel)]="projet"
+												<p-autoComplete [(ngModel)]="transaction.project"
 													(onDropdownClick)="projectDropdown.handleDropdownClick($event)"
 													[suggestions]="projectDropdown.filteredProjects"
 													[dropdown]="true" id="project"
@@ -100,7 +99,7 @@
 											</div>
 											<div class="ui-g-6 ui-md-8">
 												<input type="text" pInputText placeholder="Montant"
-													size="16" [(ngModel)]="payAmount" name="pAmount">
+													size="16" [(ngModel)]="transaction.amount" name="pAmount">
 
 											</div>
 											<div class="ui-grid-col-1"></div>
@@ -111,18 +110,45 @@
 											<div class="ui-g-6 ui-md-3"></div>
 											<div class="ui-g-6 ui-md-8">
 												<p-radioButton name="currency" value="CFA" label="CFA"
-													[(ngModel)]="currencyCode"></p-radioButton>
+													[(ngModel)]="transaction.currencyCode"></p-radioButton>
 												<p-radioButton name="currency" value="USD" label="USD"
-													[(ngModel)]="currencyCode"></p-radioButton>
+													[(ngModel)]="transaction.currencyCode"></p-radioButton>
 												<p-radioButton name="currency" value="EURO" label="EURO"
-													[(ngModel)]="currencyCode"></p-radioButton>
+													[(ngModel)]="transaction.currencyCode"></p-radioButton>
 											</div>
 											<div class="ui-grid-col-1"></div>
 										</div>
-		
 
 										<div class="ui-grid-row">
-											<div class="ui-g-6 ui-md-3">Anonyme <p-checkbox [(ngModel)]="anonymous" binary="true" id="anonymous"></p-checkbox></div>
+
+											<div class="ui-g-6 ui-md-3"></div>
+											<div class="ui-g-6 ui-md-8">
+												<p-radioButton name="IO" value="1" label="Cotisation"
+													[(ngModel)]="transaction.io"></p-radioButton>
+												<p-radioButton name="IO" value="0" label="Depense"
+													[(ngModel)]="transaction.io"></p-radioButton> 
+											</div>
+											<div class="ui-grid-col-1"></div>
+										</div>
+										
+										<div class="ui-grid-row">
+											<div class="ui-g-6 ui-md-3">
+												<label i18n="@@Note" for="note">Note</label>
+											</div>
+											<div class="ui-g-6 ui-md-8">
+												<textarea pInputTextarea id="note"
+													[(ngModel)]="transaction.comment" rows="3" pInputTextarea
+													autoResize="autoResize" required></textarea>
+											</div>
+											<div class="ui-grid-col-1"></div>
+										</div>
+
+										<div class="ui-grid-row">
+											<div class="ui-g-6 ui-md-3">
+												Anonyme
+												<p-checkbox [(ngModel)]="transaction.anonymous"
+													binary="true" id="anonymous"></p-checkbox>
+											</div>
 											<div class="ui-g-6 ui-md-8">
 												<button type="button" pButton icon="fa-check"
 													(click)="savePayment()" label="Sauvegarder"></button>
@@ -135,14 +161,15 @@
 
 									<div class="ui-grid-col-7">
 
-										<p-dataTable [value]="contributions" [rows]="4" [rows]="4"
-											[paginator]="true"> <p-column
-											[style]="{'width':'20%'}" field="date" header="Date">
+										<p-dataTable [value]="transactions" [rows]="4" [rows]="4"
+											[paginator]="true" [(selection)]="transaction"
+											selectionMode="single"> <p-column
+											[style]="{'width':'20%'}" field="createDate" header="Date">
 
 										<ng-template let-col let-cont="rowData" pTemplate="body">
 										<span class="col-date">{{ cont[ col.field ] |
 											date:'dd/MM/yy' }}</span> </ng-template> </p-column> <p-column [style]="{'width':'65%'}"
-											field="project" header="Projet"></p-column> <p-column
+											field="project.title" header="Projet"></p-column> <p-column
 											[style]="{'width':'15%'}" field="amount"
 											header="Montant (CFA)"> <ng-template let-col
 											let-data="rowData" pTemplate="item"> <span

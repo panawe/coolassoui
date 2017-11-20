@@ -1,7 +1,7 @@
 import {User} from '../../models/user';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, NavigationExtras} from '@angular/router';
-import { Cookie } from 'ng2-cookies';
+import {Cookie} from 'ng2-cookies';
 
 @Component({
   selector: 'app-admin-menu',
@@ -15,7 +15,6 @@ import { Cookie } from 'ng2-cookies';
     `]
 })
 export class AdminMenu implements OnInit {
-
   public adminTree: string;
   public adminMain: string;
   public adminPub: string;
@@ -23,8 +22,9 @@ export class AdminMenu implements OnInit {
   public adminProject: string;
   public adminFinance: string;
   public adminProfile: string;
-    public adminVideo: string;
-    public adminImage: string;
+  public adminVideo: string;
+  public adminImage: string;
+  public adminRapport: string;
   user: User;
   constructor(
     private route: ActivatedRoute
@@ -55,6 +55,7 @@ export class AdminMenu implements OnInit {
         this.adminProject = params['adminProject'];
         this.adminFinance = params['adminFinance'];
         this.adminProfile = params['adminProfile'];
+        this.adminRapport = params['adminRapport'];
       })
   }
 }

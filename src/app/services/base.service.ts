@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import {Constants} from '../app.constants';
+import { Transaction } from '../models/Transaction';
 import {Pub} from '../models/pub';
 import {Annonce} from '../models/annonce';
 import {ChartData} from '../models/chartData';
@@ -65,6 +66,13 @@ export class BaseService {
       .catch(this.handleError);
   }
 
+  public getUserTransactions = (user: User): Observable<Transaction[]> => {
+    let actionUrl = Constants.apiServer + '/service/user/getUserTransactions/' + user.id;
+    return this.http.get(actionUrl, {headers: this.headers})
+      .map((response: Response) => <Transaction[]>response.json())
+      .catch(this.handleError);
+  }
+  
   public getUserContributions = (user: User): Observable<Contribution[]> => {
     let actionUrl = Constants.apiServer + '/service/user/getUserContributions/' + user.id;
     return this.http.get(actionUrl, {headers: this.headers})
@@ -133,8 +141,8 @@ export class BaseService {
   }
 
 
-  public savePayment = (parm: string): Observable<string> => {
-    let toAdd = JSON.stringify(parm);
+  public savePayment = (trans: Transaction): Observable<string> => {
+    let toAdd = JSON.stringify(trans);
     let actionUrl = Constants.apiServer + '/service/user/savePayment';
     return this.http.post(actionUrl, toAdd, {headers: this.headers})
       .map((response: Response) => {
