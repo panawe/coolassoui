@@ -42,10 +42,10 @@ export class AdminImage implements OnInit,OnDestroy {
   ngOnInit() {
     this.getAll();
      this.cols = [
-        {field: 'title', header: Constants.TITLE, sortable : 'false', filter : 'true'},
-        {field: 'description', header: Constants.DESCRIPTION, sortable : 'false', filter : 'true'},
-        {field: 'status', header:Constants.ACTIVE, sortable : 'true', filter : 'true'},
-        {field: 'rank', header: Constants.RANK, sortable : 'true', filter : 'true'}
+        //{field: 'title', header: Constants.TITLE, sortable : 'false', filter : 'true'},
+        {field: 'description', header: Constants.DESCRIPTION, sortable : 'false', filter : 'true', style: {'width': '58%'}},
+        {field: 'status', header:Constants.ACTIVE, sortable : 'true', filter : 'true', style: {'width': '15%'}},
+        {field: 'rank', header: Constants.RANK, sortable : 'true', filter : 'true', style: {'width': '15%'}}
     ];
   }
   ngOnDestroy() {

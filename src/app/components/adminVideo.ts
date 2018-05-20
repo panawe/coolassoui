@@ -40,11 +40,11 @@ export class AdminVideo implements OnInit {
   ngOnInit() {
         this.getAll();
         this.cols = [
-        {field: 'link', header: Constants.LINK, sortable : 'true', filter : 'true'},
-        {field: 'videoDate', header: Constants.DATE, type : 'Date', sortable : 'true'},
-        {field: 'description', header: Constants.DESCRIPTION, sortable : 'false', filter : 'true'},
-        {field: 'status', header: Constants.ACTIVE, sortable : 'true', filter : 'true'},
-        {field: 'rank', header: Constants.RANK, sortable : 'true', filter : 'true'}
+        {field: 'link', header: Constants.LINK, sortable : 'true', filter : 'true', style: {'width': '15%'}},
+        {field: 'videoDate', header: Constants.DATE, type : 'Date', sortable : 'true', style: {'width': '15%'}},
+        {field: 'description', header: Constants.DESCRIPTION, sortable : 'false', filter : 'true', style: {'width': '40%'}},
+        {field: 'status', header: Constants.ACTIVE, sortable : 'true', filter : 'true', style: {'width': '15%'}},
+        {field: 'rank', header: Constants.RANK, sortable : 'true', filter : 'true', style: {'width': '15%'}}
     ];
   }
 

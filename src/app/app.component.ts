@@ -41,11 +41,10 @@ export class AppComponent  implements OnInit {
     }, error => console.log(error));
   }
 
-
-
   ngOnDestroy() {
     // prevent memory leak when component  
   }
+  
   public logout() {
     Cookie.deleteAll();
     this.user = new User();
@@ -56,6 +55,7 @@ export class AppComponent  implements OnInit {
   public updateUser(aUser) {
     this.user = aUser;
   }
+  
   public refreshUser() {
     this.user = JSON.parse(Cookie.get('user'));
     if (this.user == null) {
