@@ -262,7 +262,7 @@ export class Arbre implements OnInit {
   public error: string;
   USER_SEARCH_PARTS: string = Constants.USER_SEARCH_PARTS;
   constructor(
-    private userService: UserService, ) {
+    private userService: UserService  ) {
 
   }
 
